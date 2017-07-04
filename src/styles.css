@@ -1,1 +1,103 @@
 /* You can add global styles to this file, and also import other style files */
+body,
+/*input,*/
+/*select,*/
+textarea {
+    /*font-size: 1.05em;*/
+    background-color: #08101a;
+    /*color: #c3c3c3;*/
+}
+
+
+/* http://stackoverflow.com/questions/16625972/change-color-of-bootstrap-navbar-on-hover-link */
+.navbar .navbar-nav > li > a:hover, .navbar .navbar-nav > li > a:focus {
+    background-color: transparent;
+}
+
+/*.navbar-right > li > a,
+.navbar-brand {
+
+}*/
+
+/*.navbar {
+    margin-bottom: 0px;
+}
+
+.navbar-brand {
+    color: #fff !important;
+}
+
+.navbar-brand > a {
+    color: #fff;
+}*/
+
+
+/*.navbar-header {
+    min-height: 77px !important;
+}
+
+.navbar-header > button {
+    margin-top: 21px !important;
+}*/
+
+/*.footer,.about{
+    position:static;
+    bottom: 0;
+    width: 100%;
+    height:auto;
+    color: #85a300;
+    background-color: #1d1f21;
+}
+
+.head-spacer {
+    margin-top: 0px;
+}
+
+.foot-spacer {
+    margin-bottom: 30px;
+}
+
+
+.row h3 {
+    margin-bottom: 0;
+}*/
+
+/*this changes the co*/
+/*
+@media only screen and (max-width: 766px) {
+    .navbar-toggle{
+        background-color: dimgrey;
+    }
+    .icon-bar{
+        background-color: white;
+    }
+    .collapsing,
+    .in {
+        background-color: #1d1f21;
+    }
+    .collapsing ul li a,
+    .in ul li a {
+        color: #9d9d9d !important;
+        margin-top: 5px
+    }
+    .collapsing ul li a:hover,
+    .in ul li a:hover {
+        color: #f1f1f1!important;
+    }
+    .col-lg-2.col-md-3.col-sm-4.col-xs-4 {
+        height: 110px;
+        padding: 0 10px;
+    }
+    .champ-icon {
+        width: 70%;
+        height: 70%;
+    }
+    .row h3 {
+        font-size: 1.8em;
+        margin-top: 1.00em;
+        margin-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+        white-space: nowrap;
+    }
+}*/

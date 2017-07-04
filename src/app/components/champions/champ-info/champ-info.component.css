@@ -1,0 +1,18 @@
+.icon-float-left{
+  float: left;
+  height: 120px;
+  width: 120px;
+  margin: 0px 10px 10px 0px;
+  margin-left: -10px;
+}
+
+.clear{
+  clear: left;
+}
+.centered{
+  margin: auto;
+  width: 50%;
+}
+.less-padding{
+  padding-left: 12px;
+}
