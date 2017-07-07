@@ -1,4 +1,8 @@
-<div class="row">
+<div *ngIf="loading" class="spinner-container">
+  <div class="spinner"></div>
+  <h2 class="loading-header">Loading...</h2>
+</div>
+<div class="row" *ngIf="!loading">
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
@@ -7,35 +11,51 @@
         <h2 class="card-subtitle text-muted">{{champion?.title}}</h2>
         <ul class="nav nav-tabs card-header-tabs clear">
           <li class="nav-item">
-            <a class="nav-link active" href="">Raw Stats*</a>
+            <a class="nav-link" [ngClass]="{'active': displayBlock=='abilities'}" (click)="displayBlock='abilities'">Abilities</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">Abilities</a>
+            <a class="nav-link" [ngClass]="{'active': displayBlock=='rawStats'}" (click)="displayBlock='rawStats'">Raw Stats*</a>
           </li>
           <li class="nav-item">
             <a class="nav-link disabled" href="">Disabled</a>
           </li>
         </ul>
       </div>
-      <div class="card-block" *ngIf="champion && displayBlock == 'rawStats'">
+      <div class="card-block raw-stat-block" *ngIf="champion && displayBlock == 'rawStats'">
         <div class="row">
-        <p class="col-6">HP : {{champion?.stats["base_hp"]}} (+{{champion?.stats["hpperlevel"]}} per level)</p>
-        <p class="col-6">HP Regen : {{champion?.stats["hpregen"]}} (+{{champion?.stats["hpregenperlevel"]}} per level)</p>
+          <p class="col-6"><img src="assets/stats/hp.png" alt="" class="stat-icon">HP : {{champion?.stats["base_hp"]}} (+{{champion?.stats["hpperlevel"]}}
+            per level)</p>
+          <p class="col-6"><img src="assets/stats/hp-reg.png" alt="" class="stat-icon">HP Regen : {{champion?.stats["hpregen"]}} (+{{champion?.stats["hpregenperlevel"]}}
+            per level)</p>
 
-        <p class="col-6">MP : {{champion?.stats["base_mp"]}} (+{{champion?.stats["mpperlevel"]}} per level)</p>
-        <p class="col-6">MP Regen : {{champion?.stats["mpregen"]}} (+{{champion?.stats["mpregenperlevel"]}} per level)</p>
+          <p class="col-6"><img src="assets/stats/mp.png" alt="" class="stat-icon">MP : {{champion?.stats["base_mp"]}} (+{{champion?.stats["mpperlevel"]}}
+            per level)</p>
+          <p class="col-6"><img src="assets/stats/res-regen.png" alt="" class="stat-icon">MP Regen : {{champion?.stats["mpregen"]}} (+{{champion?.stats["mpregenperlevel"]}}
+            per level)</p>
 
-        <p class="col-6">AD : {{champion?.stats["base_ad"]}} (+{{champion?.stats["adperlevel"]}} per level)</p>
-        <p class="col-6">Armor : {{champion?.stats["base_armor"]}} (+{{champion?.stats["armorperlevel"]}} per level)</p>
+          <p class="col-6"><img src="assets/stats/ad.png" alt="" class="stat-icon">AD : {{champion?.stats["base_ad"]}} (+{{champion?.stats["adperlevel"]}}
+            per level)</p>
+          <p class="col-6"><img src="assets/stats/armor.png" alt="" class="stat-icon">Armor : {{champion?.stats["base_armor"]}} (+{{champion?.stats["armorperlevel"]}}
+            per level)</p>
 
-        <p class="col-6">AS : {{champion?.stats["base_as"]}} (+{{champion?.stats["asperlevel"]}}&#37; per level)</p>
-        <p class="col-6">MR : {{champion?.stats["base_mr"]}} (+{{champion?.stats["mrperlevel"]}} per level)</p>
+          <p class="col-6"><img src="assets/stats/as.png" alt="" class="stat-icon">AS : {{champion?.stats["base_as"]}} (+{{champion?.stats["asperlevel"]}}&#37;
+            per level)</p>
+          <p class="col-6"><img src="assets/stats/mr.png" alt="" class="stat-icon">MR : {{champion?.stats["base_mr"]}} (+{{champion?.stats["mrperlevel"]}}
+            per level)</p>
 
-        <p class="col-6">Range : {{champion?.stats["aarange"]}}</p>
-        <p class="col-6">Move Speed : {{champion?.stats["movespeed"]}}</p>
+          <p class="col-6"><img src="assets/stats/range.png" alt="" class="stat-icon">Range : {{champion?.stats["aarange"]}}</p>
+          <p class="col-6"><img src="assets/stats/movespeed.png" alt="" class="stat-icon">Move Speed : {{champion?.stats["movespeed"]}}</p>
 
-        <p>Champ Health at LV18: {{champion?.stats["hp"]}}</p>
         </div>
+      </div>
+      <div *ngIf="champion && displayBlock =='abilities' ">
+        <div class="card-block passive-block">
+          <img src="{{makePassiveImageUrl(champion.passive.image.full)}}" alt="">{{champion.passive.name}}
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" *ngFor="let spell of champion.spells">
+            <img src="{{makeSpellImagePromise(spell.key)}}" alt="">{{spell.name}}</li>
+        </ul>
       </div>
       <div class="card-footer">
         Select Champion for Build | Select Champion for Target

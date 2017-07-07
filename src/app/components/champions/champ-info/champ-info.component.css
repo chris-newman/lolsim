@@ -16,3 +16,20 @@
 .less-padding{
   padding-left: 12px;
 }
+
+.raw-stat-block{
+  padding-bottom: 4px;
+}
+
+.stat-icon{
+  height: 24px;
+  width: 24px;
+  margin-right: 4px;
+}
+
+
+/*spells*/
+.passive-block{
+  padding-top: 12px;
+  padding-bottom: 12px;
+}

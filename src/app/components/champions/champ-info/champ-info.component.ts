@@ -27,6 +27,7 @@ export class ChampInfoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     console.log('champ info on init');
     if (!this.loldata.dataVersion) {
+      this.loading = true;
       this.loldata.getData().then(() => {
         this.sub = this.route.params.subscribe((params) => {
           // console.log(params);
@@ -36,9 +37,11 @@ export class ChampInfoComponent implements OnInit, OnDestroy {
           console.log(this.champion);
           this.champion.stats.setLevel(18);
           // console.log("bonus attack speed at level 18:" this.champion.stats.)
+          this.loading = false;
         });
       });
     } else {
+
       this.sub = this.route.params.subscribe((params) => {
         console.log(params);
         this.champIconPromise = this.makeIconImagePromise(params.champKey);
@@ -48,7 +51,7 @@ export class ChampInfoComponent implements OnInit, OnDestroy {
         this.champion.stats.setLevel(18);
       });
     }
-    this.displayBlock = 'rawStats';
+    this.displayBlock = 'abilities';
   }
 
   // just to be safe
@@ -65,6 +68,14 @@ export class ChampInfoComponent implements OnInit, OnDestroy {
       const imageUrl = `http://ddragon.leagueoflegends.com/cdn/${this.loldata.dataVersion}/img/champion/${champKey}.png`;
       resolve(imageUrl);
     });
+  }
+
+  makeSpellImagePromise(spellKey) {
+    return `http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/${spellKey}.png`;
+  }
+
+  makePassiveImageUrl(passiveKey){
+    return `http://ddragon.leagueoflegends.com/cdn/6.24.1/img/passive/${passiveKey}`;
   }
 
   makeSplashImagePromise(champKey) {

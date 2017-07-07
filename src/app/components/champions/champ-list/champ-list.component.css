@@ -1,38 +1,3 @@
 h2, h3 {
   color: #c3c3c3;
 }
-
-.spinner-container{
-  margin-top: 4em;
-  height: 25em;
-}
-.spinner-container > h2 {
-  text-align: center;
-}
-
-.spinner {
-  box-sizing: border-box;
-  border: solid .75em transparent;
-  background: url(http://na.leagueoflegends.com/sites/default/files/styles/wide_medium/public/upload/awn53kv.jpg) 50%/cover padding-box;
-}
-.spinner, .spinner:before {
-  position: absolute;
-  margin: -10em;
-  width: 20em;
-  height: 20em;
-  top: 50%;
-  left: 50%;
-  border-radius: 50%;
-}
-.spinner:before {
-  z-index: -1;
-  background: conic-gradient(#ff9999, #ffcc99, #ffff99, #ccff99, #99ff99, #99ffcc, #99ffff, #99ccff, #9999ff, #cc99ff, #ff99ff, #ff99cc, #ff9999);
-  animation: r 2s linear infinite;
-  content: '';
-}
-
-@keyframes r {
-  to {
-    transform: rotate(1turn);
-  }
-}

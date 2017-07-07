@@ -15,7 +15,8 @@ export class Champion {
     public key: string,
     public name: string,
     public title: string,
-    // public thumbnail: string,
+    public passive: any,
+    public spells: Array<Spell>,
     public stats: Stats
   ) {
     this.setLevel = this.stats.setLevel;
