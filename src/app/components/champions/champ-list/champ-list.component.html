@@ -2,9 +2,9 @@
   <div class="spinner"></div>
   <h2>Loading...</h2>
 </div>
-<div *ngIf="!this.loading" class="row" align="center" style="margin-bottom: 30px;">
-  <div *ngFor="let champ of champions" class="col-lg-2 col-md-3 col-sm-3 col-xs-4">
+<div *ngIf="!this.loading" class="row bottom-spacing" align="center">
+  <div *ngFor="let champ of champions" class="col-lg-2 col-md-2 col-sm-3 col-4 bottom-spacing">
     <h3>{{champ.name}}</h3>
-    <a [attr.href]="makeInfoURL(champ.key)"><img class="champ-icon" [src]="makeIconImageURL(champ.key)" alt=""></a>
+    <a [attr.href]="makeInfoURL(champ.key)"><img class="img-fluid" [src]="makeIconImageURL(champ.key)" alt=""></a>
   </div>
 </div>
