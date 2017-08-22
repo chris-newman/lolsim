@@ -35,10 +35,17 @@ export class SortService {
     return 0; // default return value (no sorting)
   }
 
-  ascendingGoldCostMap(a, b){
+  ascendingGoldCostMap(a, b) {
     let goldA = a[1].gold.total, goldB = b[1].gold.total;
     if (goldA < goldB) return -1;
-    if (goldB > goldB) return 1;
+    if (goldA > goldB) return 1;
+    return 0;
+  }
+
+  ascendingRuneCategoryMap(a, b) {
+    let runeA = a[1].type, runeB = b[1].type;
+    if (runeA < runeB) return -1;
+    if (runeA > runeB) return 1;
     return 0;
   }
 }

@@ -9,6 +9,7 @@ import { Stats } from 'app/classes/stats';
 import { Spell } from 'app/classes/spell';
 import { MendService } from 'app/services/mend.service';
 import { Item } from "app/classes/item";
+import { Rune } from "app/classes/rune";
 
 @Injectable()
 export class DataService {
@@ -19,7 +20,7 @@ export class DataService {
   // currentChamp: Champion;
   items: Map<string, Item>;
   masteries: Object[];
-  runes: Map<string, Object>;
+  runes: Map<string, Rune>;
   loading: boolean;
   testApi: string;
   search: URLSearchParams;
@@ -113,12 +114,10 @@ export class DataService {
     // console.log('get runes called');
     const promise = new Promise((resolve, reject) => {
       if (!this.runes) {
-
         let searchParams = new URLSearchParams();
         let url = this.apiRoot;
         if (!this.tempDataFlag) {
           // const champDataParams = ['image', 'passive', 'spells', 'stats', 'tags'];
-
           url += '/static/runes';
           searchParams.set('runeData', 'stats'); // using 'all' until Rito fixes their shit
         }
@@ -129,20 +128,21 @@ export class DataService {
         this.http.get(url, { search: searchParams })
           .toPromise()
           .then(res => {
-            // console.log('get runes success .then');
-
-            // console.log('get champions success .then');
-            let temp = new Map<string, Object>();
+            let temp = new Map<string, Rune>();
             const json = res.json();
-            console.log(res);
+            console.log(json);
             this.dataVersion = json.version;
-            // console.log(this.dataVersion);
-            // for (const rune in json.data) {
-            //   if (json.data.hasOwnProperty(rune)) {
-            //     // bla
-            //   }
-            // }
-
+            for (const rune in json.data) {
+              if (json.data.hasOwnProperty(rune)) {
+                // exclude some of the data, we only want t3 runes
+                if (json.data[rune].rune.tier === '3') {
+                  temp.set('' + json.data[rune].id, new Rune(json.data[rune]));
+                }
+              }
+            }
+            // sort runes before putting them in
+            this.runes = new Map<string, Rune>(Array.from(temp).sort(this.sort.ascendingRuneCategoryMap));
+            console.log(this.runes.size);
             resolve();
           })
           .catch(err => {
@@ -174,10 +174,10 @@ export class DataService {
         this.http.get(url, { search: searchParams })
           .toPromise()
           .then(res => {
-            console.log('get items success .then');
+            // console.log('get items success .then');
             let temp = new Map<string, Item>();
             let json = res.json();
-            console.log(res.json());
+            // console.log(res.json());
 
             // TO DO: make item from json.tree
 
@@ -191,7 +191,7 @@ export class DataService {
                 }
               }
             }
-            console.log(temp.size);
+            // console.log(temp.size);
             this.items = new Map<string, Item>(Array.from(temp).sort(this.sort.ascendingGoldCostMap));
             // let doodoomap = new Map<string, Item>
             resolve();
@@ -208,7 +208,6 @@ export class DataService {
 
   getData() {
     if (!this.dataVersion) {
-      // getItems;
       // getmasteries;
       const runeDataPromise = this.getRunes();
       const champDataPromise = this.getChampions();
@@ -235,5 +234,15 @@ export class DataService {
       });
     }
     return this.items.get(itemId);
+  }
+
+  getRuneById(runeId: string): Rune {
+    console.log('getRuneById: ' + runeId);
+    if (!this.dataVersion) {
+      this.getData().then((value) => {
+        return this.runes.get(runeId);
+      });
+    }
+    return this.runes.get(runeId);
   }
 }

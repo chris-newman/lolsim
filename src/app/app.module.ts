@@ -9,10 +9,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HelpComponent } from './components/help/help.component';
-import { MasteriesComponent } from './components/masteries/masteries.component';
-import { ChampionsComponent } from './components/champions/champions.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
-import { RunesComponent } from './components/runes/runes.component';
 import { MatrixBarDirective } from './directives/matrix-bar.directive';
 import { ChampListComponent } from './components/champions/champ-list/champ-list.component';
 import { ChampInfoComponent } from './components/champions/champ-info/champ-info.component';
@@ -22,7 +19,6 @@ import { RuneListComponent } from './components/runes/rune-list/rune-list.compon
 import { RuneInfoComponent } from './components/runes/rune-info/rune-info.component';
 import { MasteryListComponent } from './components/masteries/mastery-list/mastery-list.component';
 import { MasteryInfoComponent } from './components/masteries/mastery-info/mastery-info.component';
-import { ItemsComponent } from './components/items/items.component';
 import { DataService } from './services/data.service';
 import { SortService } from './services/sort.service';
 import { MendService } from './services/mend.service';
@@ -46,8 +42,8 @@ const routes: Routes = [
   {path: '', redirectTo: 'champions', pathMatch: 'full'},
   {path: 'champions', component: ChampListComponent},
   {path: 'champions/:champKey', component: ChampInfoComponent},
-  {path: 'masteries', component: MasteriesComponent},
-  {path: 'runes', component: RunesComponent},
+  {path: 'masteries', component: MasteryListComponent},
+  {path: 'runes', component: RuneListComponent},
   {path: 'items', component: ItemListComponent},
   {path: 'items/:itemId', component: ItemInfoComponent},
   // {path: 'help', component: HelpComponent}
@@ -59,10 +55,7 @@ const routes: Routes = [
     AppComponent,
     HeaderComponent,
     HelpComponent,
-    MasteriesComponent,
-    ChampionsComponent,
     SideMenuComponent,
-    RunesComponent,
     MatrixBarDirective,
     ChampListComponent,
     ChampInfoComponent,
@@ -72,7 +65,6 @@ const routes: Routes = [
     RuneInfoComponent,
     MasteryListComponent,
     MasteryInfoComponent,
-    ItemsComponent
   ],
   imports: [
     NgbModule.forRoot(),

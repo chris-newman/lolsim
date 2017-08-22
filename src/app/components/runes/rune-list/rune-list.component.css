@@ -1,0 +1,13 @@
+h2, h3 {
+  color: #c3c3c3;
+  font-size: 1em;
+}
+
+.fixed-size{
+  width: 60px;
+  height: 60px;
+}
+
+.bottom-spacing{
+  padding-bottom: 15px;
+}
