@@ -33,3 +33,31 @@
   padding-top: 12px;
   padding-bottom: 12px;
 }
+
+.ability-header{
+  margin-left: 4px;
+  font-size: 24px;
+
+}
+.override-display{
+  display: block;
+}
+
+.ability-icon{
+  float: left;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  margin-top: 2px;
+}
+
+.passive-icon{
+  margin-right: 8px;
+  margin-bottom: 8px;
+  margin-top: 2px;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}

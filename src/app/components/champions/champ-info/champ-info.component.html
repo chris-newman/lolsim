@@ -5,6 +5,7 @@
 <div class="row" *ngIf="!loading">
   <div class="col-md-12">
     <div class="card">
+      <!-- HEADER -->
       <div class="card-header">
         <img src="{{champIconPromise | async}}" class="icon-float-left img-thumbnail" alt="">
         <h1 class="card-title">{{champion?.name}}</h1>
@@ -21,6 +22,8 @@
           </li>
         </ul>
       </div>
+
+      <!-- STATS -->
       <div class="card-block raw-stat-block" *ngIf="champion && displayBlock == 'rawStats'">
         <div class="row">
           <p class="col-6"><img src="assets/stats/hp.png" alt="" class="stat-icon">HP : {{champion?.stats["base_hp"]}} (+{{champion?.stats["hpperlevel"]}}
@@ -48,15 +51,30 @@
 
         </div>
       </div>
+
+      <!-- SPELLS -->
       <div *ngIf="champion && displayBlock =='abilities' ">
         <div class="card-block passive-block">
-          <img src="{{makePassiveImageUrl(champion.passive.image.full)}}" alt="">{{champion.passive.name}}
+          <div class="clearfix">
+              <img class="ability-icon" src="{{makePassiveImageUrl(champion.passive.image.full)}}" alt="">
+              <h1 class="ability-header">{{champion.passive.name}}</h1>
+              <p>{{champion.passive.sanitizedDescription}}</p>
+          </div>
         </div>
+
         <ul class="list-group list-group-flush">
-          <li class="list-group-item" *ngFor="let spell of champion.spells">
-            <img src="{{makeSpellImagePromise(spell.key)}}" alt="">{{spell.name}}</li>
+          <li class="list-group-item override-display" *ngFor="let spell of champion.spells; let i = index">
+            <img class="ability-icon" src="{{makeSpellImagePromise(spell.key)}}" alt="">
+            <h1 class="ability-header">{{makeHotkey(i)}} - {{spell.name}}</h1>
+            <p [innerHTML]="spell.displayTooltip"></p>
+
+            <p>Cost: {{spell.displayCost}} {{spell.costType}}</p>
+            <p class="cooldown">Cooldown: {{spell.displayCooldown}} seconds</p>
+
+          </li>
         </ul>
       </div>
+
       <div class="card-footer">
         Select Champion for Build | Select Champion for Target
       </div>

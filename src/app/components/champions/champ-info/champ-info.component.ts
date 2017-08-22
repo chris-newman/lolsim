@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from './../../../../app/services/data.service';
 import { Champion } from 'app/classes/champion';
+import { Spell } from 'app/classes/spell';
 
 @Component({
   selector: 'app-champ-info',
@@ -16,11 +17,10 @@ export class ChampInfoComponent implements OnInit, OnDestroy {
   champBackground: string;
   loading: boolean;
   imageUrl: string;
-  champIconPromise: Promise<string>;
-  champSplashPromise: Promise<string>;
+  champIconPromise: Promise<{}>;
+  champSplashPromise: Promise<{}>;
   displayBlock: string;
   // routeParams: any;
-
 
   constructor(protected loldata: DataService, private route: ActivatedRoute) { }
 
@@ -41,7 +41,6 @@ export class ChampInfoComponent implements OnInit, OnDestroy {
         });
       });
     } else {
-
       this.sub = this.route.params.subscribe((params) => {
         console.log(params);
         this.champIconPromise = this.makeIconImagePromise(params.champKey);
@@ -74,7 +73,7 @@ export class ChampInfoComponent implements OnInit, OnDestroy {
     return `http://ddragon.leagueoflegends.com/cdn/6.24.1/img/spell/${spellKey}.png`;
   }
 
-  makePassiveImageUrl(passiveKey){
+  makePassiveImageUrl(passiveKey) {
     return `http://ddragon.leagueoflegends.com/cdn/6.24.1/img/passive/${passiveKey}`;
   }
 
@@ -85,4 +84,12 @@ export class ChampInfoComponent implements OnInit, OnDestroy {
     });
   }
 
+  makeHotkey(index) {
+    switch (index) {
+      case (0): return 'Q';
+      case (1): return 'W';
+      case (2): return 'E';
+      case (3): return 'R';
+    }
+  }
 }

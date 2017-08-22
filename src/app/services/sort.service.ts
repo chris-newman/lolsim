@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Champion } from "app/classes/champion";
 // inspiration for having a service
 // http://stackoverflow.com/questions/35534959/access-key-and-value-of-object-using-ngfor
 
@@ -17,15 +18,18 @@ export class SortService {
     return 0; // default return value (no sorting)
   };
 
-  ascendingChampions(a, b) {
+  ascendingChampions(a: Champion, b: Champion) {
     let nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
+    console.warn(nameA + ',' + nameB);
+
     if (nameA < nameB) return -1; // sort string ascending
     if (nameA > nameB) return 1;
     return 0; // default return value (no sorting)
   };
 
   ascendingChampMap(a, b) {
-    let nameA = a[0].toLowerCase(), nameB = b[0].toLowerCase();
+    // console.log(a);
+    let nameA = a[1].name.toLowerCase(), nameB = b[1].name.toLowerCase();
     if (nameA < nameB) return -1; // sort string ascending
     if (nameA > nameB) return 1;
     return 0; // default return value (no sorting)

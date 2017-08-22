@@ -25,6 +25,8 @@ import { MasteryInfoComponent } from './components/masteries/mastery-info/master
 import { ItemsComponent } from './components/items/items.component';
 import { DataService } from './services/data.service';
 import { SortService } from './services/sort.service';
+import { MendService } from './services/mend.service';
+import { SimService } from './services/sim.service';
 import { Champion } from 'app/classes/champion';
 
 // @Injectable()
@@ -78,7 +80,7 @@ const routes: Routes = [
     HttpModule,
     RouterModule.forRoot(routes, {useHash: true})
   ],
-  providers: [DataService, SortService],
+  providers: [DataService, SortService, MendService, SimService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

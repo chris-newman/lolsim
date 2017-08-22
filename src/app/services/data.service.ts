@@ -5,8 +5,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { Champion } from 'app/classes/champion';
 import { SortService } from 'app/services/sort.service';
-import { Stats } from "app/classes/stats";
-import { Spell } from "app/classes/spell";
+import { Stats } from 'app/classes/stats';
+import { Spell } from 'app/classes/spell';
+import { MendService } from 'app/services/mend.service';
 
 @Injectable()
 export class DataService {
@@ -22,10 +23,19 @@ export class DataService {
   testApi: string;
   search: URLSearchParams;
 
-  constructor(private http: Http, protected sort: SortService) {
-    //this.apiRoot = 'http://73.134.84.72:10101';
-    this.apiRoot = 'http://localhost:3001';
+  // temp data flag
+  tempDataFlag: boolean;
+
+  constructor(private http: Http, protected sort: SortService, protected mend: MendService) {
+    this.apiRoot = 'http://73.134.84.72:10101';
+    // this.apiRoot = 'http://localhost:3001';
     this.loading = false;
+
+    this.tempDataFlag = true;
+    if (this.tempDataFlag) {
+      console.warn('!!!USING TEMP DATA FOR OFFLINE DEVELOPMENT!!!');
+      this.apiRoot = './assets/temp-data/';
+    }
   }
 
 
@@ -35,12 +45,19 @@ export class DataService {
     // console.log('getChampions() called');
     const promise = new Promise((resolve, reject) => {
       if (!this.champions) {
+
         let searchParams = new URLSearchParams();
         let url = this.apiRoot;
-        // const champDataParams = ['image', 'passive', 'spells', 'stats', 'tags'];
 
-        url += '/static/champions';
-        searchParams.set('champData', 'all'); // using 'all' until Rito fixes their shit
+        if (!this.tempDataFlag) {
+          // const champDataParams = ['image', 'passive', 'spells', 'stats', 'tags'];
+          url += '/static/champions';
+          searchParams.set('champData', 'all'); // using 'all' until Rito fixes their shit
+        }
+        else {
+          url += 'champions.json';
+        }
+
         console.log('http call for getChampions');
         this.http.get(url, { search: searchParams })
           .toPromise()
@@ -48,17 +65,23 @@ export class DataService {
             console.log('get champions success .then');
             let temp = new Map<string, Champion>();
             const json = res.json();
-            // console.log(res);
+            this.mend.mendChampData(json);
             this.dataVersion = json.version;
-            // console.log(this.dataVersion);
             for (const champ in json.data) {
               if (json.data.hasOwnProperty(champ)) {
                 // get stats data
                 let ritoStats = new Stats(json.data[champ].stats);
                 //get spells data
                 const ritoSpells = new Array<Spell>();
-                for (var i = 0; i < json.data[champ].spells.length; i++) {
-                  ritoSpells.push(new Spell(json.data[champ].spells[i]));
+                for (let i = 0; i < json.data[champ].spells.length; i++) {
+
+                  let tempSpell = new Spell(json.data[champ].spells[i]);
+                  tempSpell = this.mend.mendSpell(tempSpell);
+                  // ritoSpells.push(tempSpell);
+
+                  ritoSpells.push(tempSpell);
+
+                  // ritoSpells.push(this.mend.mendSpell(new Spell(json.data[champ].spells[i])));
                 }
 
                 // add champ key to map
@@ -72,7 +95,7 @@ export class DataService {
 
               }
             }
-            // console.log('storing sorted array of champions in map...');
+            console.log('storing sorted array of champions in map...');
             this.champions = new Map<string, Champion>(Array.from(temp).sort(this.sort.ascendingChampMap));
             // console.log(this.champions);
             // console.log('resolve');
@@ -93,12 +116,18 @@ export class DataService {
     console.log('get runes called');
     const promise = new Promise((resolve, reject) => {
       if (!this.runes) {
+
         let searchParams = new URLSearchParams();
         let url = this.apiRoot;
-        // const champDataParams = ['image', 'passive', 'spells', 'stats', 'tags'];
+        if (!this.tempDataFlag) {
+          // const champDataParams = ['image', 'passive', 'spells', 'stats', 'tags'];
 
-        url += '/static/runes';
-        searchParams.set('runeData', 'stats'); // using 'all' until Rito fixes their shit
+          url += '/static/runes';
+          searchParams.set('runeData', 'stats'); // using 'all' until Rito fixes their shit
+        }
+        else {
+          url += 'runes.json';
+        }
         console.log('http call for getRunes');
         this.http.get(url, { search: searchParams })
           .toPromise()
@@ -130,27 +159,33 @@ export class DataService {
   }
 
   // get items
-  private getItems(){
+  private getItems() {
     console.log('get items called');
     const promise = new Promise((resolve, reject) => {
-      if(!this.items){
+      if (!this.items) {
         let searchParams = new URLSearchParams();
         let url = this.apiRoot;
-        searchParams.set('itemData', 'all')
-        url += '/static/items';
+
+        if (!this.tempDataFlag) {
+          searchParams.set('itemData', 'all')
+          url += '/static/items';
+        }
+        else {
+          url += 'items.json';
+        }
         console.log('http call for getItems');
-        this.http.get(url, {search: searchParams})
-        .toPromise()
-        .then(res => {
-          console.log('get items success .then');
-          console.log(res.json());
-          resolve();
-        })
-        .catch(err => {
-          console.log('error');
-          console.log(err);
-          reject();
-        });
+        this.http.get(url, { search: searchParams })
+          .toPromise()
+          .then(res => {
+            console.log('get items success .then');
+            console.log(res.json());
+            resolve();
+          })
+          .catch(err => {
+            console.log('error');
+            console.log(err);
+            reject();
+          });
       }
     });
     return promise;

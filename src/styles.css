@@ -13,16 +13,23 @@ textarea {
     font-weight: bold;
 }
 
+.base-black{
+  color: #000000;
+  font-weight: bold;
+}
+
 .ad-orange {
     color: #ff9900;
 }
 
 .ap-green {
-    color: #99ff99;
+    /* color: #99ff99; */
+    color: #37BD37;
 }
 
 .armor-yellow {
-    color: #ffff00;
+    /* color: #ffff00; */
+    color: #CBCB00;
 }
 
 .mr-purple {

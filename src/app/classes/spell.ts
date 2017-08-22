@@ -4,7 +4,7 @@ export class Spell {
   public displayCooldown: string;
   public displayRange: string;
   public displayCost: string;
-  public displayEffect: Array<string>;
+  public effectStrings: Array<string>;
 
   public cooldown: Array<number>;
   public key: string;
@@ -17,8 +17,9 @@ export class Spell {
 
   public cost;
   public costType;
-  public sanitizedDescription;
-  public sanitizedTooltip;
+  public baseDescription;
+  public baseTooltip;
+  public displayTooltip;
   public range;
 
   public effect: any; // Array<Array<string>>;
@@ -29,7 +30,7 @@ export class Spell {
     this.displayCooldown = spell.cooldownBurn;
     this.displayRange = spell.rangeBurn;
     this.displayCost = spell.costBurn;
-    this.displayEffect = spell.effectBurn;
+    this.effectStrings = spell.effectBurn;
 
     this.cooldown = spell.cooldown;
     this.key = spell.key;
@@ -39,8 +40,9 @@ export class Spell {
     this.leveltip = spell.leveltip;
     this.cost = spell.cost;
     this.costType = spell.costType;
-    this.sanitizedDescription = spell.sanitizedDescription;
-    this.sanitizedTooltip = spell.sanitizedTooltip;
+    this.baseDescription = spell.sanitizedDescription;
+    this.baseTooltip = spell.sanitizedTooltip;
+    this.displayTooltip = spell.sanitizedTooltip;
 
     this.effect = spell.effect;
     this.vars = spell.vars;
