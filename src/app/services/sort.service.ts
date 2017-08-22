@@ -34,4 +34,11 @@ export class SortService {
     if (nameA > nameB) return 1;
     return 0; // default return value (no sorting)
   }
+
+  ascendingGoldCostMap(a, b){
+    let goldA = a[1].gold.total, goldB = b[1].gold.total;
+    if (goldA < goldB) return -1;
+    if (goldB > goldB) return 1;
+    return 0;
+  }
 }

@@ -48,7 +48,8 @@ const routes: Routes = [
   {path: 'champions/:champKey', component: ChampInfoComponent},
   {path: 'masteries', component: MasteriesComponent},
   {path: 'runes', component: RunesComponent},
-  {path: 'items', component: ItemsComponent},
+  {path: 'items', component: ItemListComponent},
+  {path: 'items/:itemId', component: ItemInfoComponent},
   // {path: 'help', component: HelpComponent}
   {path: '**', redirectTo: 'champions'}
 ];

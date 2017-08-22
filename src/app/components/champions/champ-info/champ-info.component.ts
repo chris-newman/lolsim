@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DataService } from './../../../../app/services/data.service';
 import { Champion } from 'app/classes/champion';
 import { Spell } from 'app/classes/spell';
+import { SimService } from "app/services/sim.service";
 
 @Component({
   selector: 'app-champ-info',
@@ -22,7 +23,7 @@ export class ChampInfoComponent implements OnInit, OnDestroy {
   displayBlock: string;
   // routeParams: any;
 
-  constructor(protected loldata: DataService, private route: ActivatedRoute) { }
+  constructor(protected loldata: DataService, private route: ActivatedRoute, protected sim: SimService) { }
 
   ngOnInit() {
     console.log('champ info on init');
@@ -51,6 +52,7 @@ export class ChampInfoComponent implements OnInit, OnDestroy {
       });
     }
     this.displayBlock = 'abilities';
+    console.log('sim service selected champion: ' + this.sim.getChampion());
   }
 
   // just to be safe

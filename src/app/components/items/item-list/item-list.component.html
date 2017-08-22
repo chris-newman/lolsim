@@ -1,3 +1,11 @@
-<p>
-  item-list works!
-</p>
+<div *ngIf="loading" class="spinner-container">
+  <div class="spinner"></div>
+  <h2>Loading...</h2>
+</div>
+<div *ngIf="!this.loading" class="row bottom-spacing" align="center">
+  <div *ngFor="let item of items" class="col-lg-2 col-md-2 col-sm-3 col-4 bottom-spacing">
+    <a [attr.href]="makeInfoURL(item.id)"><h3>{{item.name}}</h3></a>
+    <!-- TO DO: add image src [src]="makeIconImageURL(item.id)"-->
+    <a [attr.href]="makeInfoURL(item.id)"><img class="img-fluid" alt=""></a>
+  </div>
+</div>

@@ -8,6 +8,7 @@ import { SortService } from 'app/services/sort.service';
 import { Stats } from 'app/classes/stats';
 import { Spell } from 'app/classes/spell';
 import { MendService } from 'app/services/mend.service';
+import { Item } from "app/classes/item";
 
 @Injectable()
 export class DataService {
@@ -16,7 +17,7 @@ export class DataService {
   champions: Map<string, Champion>;
   // for now, using currentChamp as opposed to checking champions data
   // currentChamp: Champion;
-  items: Object[];
+  items: Map<string, Item>;
   masteries: Object[];
   runes: Map<string, Object>;
   loading: boolean;
@@ -41,7 +42,7 @@ export class DataService {
 
   // populate Champion array with initial data
   private getChampions() {
-    console.log('get champions called');
+    // console.log('get champions called');
     // console.log('getChampions() called');
     const promise = new Promise((resolve, reject) => {
       if (!this.champions) {
@@ -58,7 +59,7 @@ export class DataService {
           url += 'champions.json';
         }
 
-        console.log('http call for getChampions');
+        // console.log('http call for getChampions');
         this.http.get(url, { search: searchParams })
           .toPromise()
           .then(res => {
@@ -91,14 +92,10 @@ export class DataService {
                   json.data[champ].passive,
                   ritoSpells,
                   ritoStats));
-
-
               }
             }
             console.log('storing sorted array of champions in map...');
             this.champions = new Map<string, Champion>(Array.from(temp).sort(this.sort.ascendingChampMap));
-            // console.log(this.champions);
-            // console.log('resolve');
             resolve();
           })
           .catch(err => {
@@ -113,7 +110,7 @@ export class DataService {
 
   // get runes
   private getRunes() {
-    console.log('get runes called');
+    // console.log('get runes called');
     const promise = new Promise((resolve, reject) => {
       if (!this.runes) {
 
@@ -128,11 +125,11 @@ export class DataService {
         else {
           url += 'runes.json';
         }
-        console.log('http call for getRunes');
+        // console.log('http call for getRunes');
         this.http.get(url, { search: searchParams })
           .toPromise()
           .then(res => {
-            console.log('get runes success .then');
+            // console.log('get runes success .then');
 
             // console.log('get champions success .then');
             let temp = new Map<string, Object>();
@@ -160,7 +157,7 @@ export class DataService {
 
   // get items
   private getItems() {
-    console.log('get items called');
+    // console.log('get items called');
     const promise = new Promise((resolve, reject) => {
       if (!this.items) {
         let searchParams = new URLSearchParams();
@@ -173,12 +170,30 @@ export class DataService {
         else {
           url += 'items.json';
         }
-        console.log('http call for getItems');
+        // console.log('http call for getItems');
         this.http.get(url, { search: searchParams })
           .toPromise()
           .then(res => {
             console.log('get items success .then');
+            let temp = new Map<string, Item>();
+            let json = res.json();
             console.log(res.json());
+
+            // TO DO: make item from json.tree
+
+            for (const item in json.data) {
+              if (json.data.hasOwnProperty(item)) {
+                // TO DO: configure item inclusion settings
+
+                // if item is available on SR
+                if (json.data[item].maps['11']) {
+                  temp.set('' + json.data[item].id, new Item(json.data[item]));
+                }
+              }
+            }
+            console.log(temp.size);
+            this.items = new Map<string, Item>(Array.from(temp).sort(this.sort.ascendingGoldCostMap));
+            // let doodoomap = new Map<string, Item>
             resolve();
           })
           .catch(err => {
@@ -211,4 +226,14 @@ export class DataService {
     }
     return this.champions.get(champKey);
   };
+
+  getItemById(itemId: string): Item {
+    console.log('getItemById: ' + itemId);
+    if (!this.dataVersion) {
+      this.getData().then((values) => {
+        return this.items.get(itemId);
+      });
+    }
+    return this.items.get(itemId);
+  }
 }
