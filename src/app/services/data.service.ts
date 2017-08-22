@@ -10,16 +10,16 @@ import { Spell } from 'app/classes/spell';
 import { MendService } from 'app/services/mend.service';
 import { Item } from "app/classes/item";
 import { Rune } from "app/classes/rune";
+import { Mastery } from "app/classes/mastery";
+// TO DO: look into grouping imports from classes directory into a barrel
 
 @Injectable()
 export class DataService {
   apiRoot: string;
   dataVersion: string;
   champions: Map<string, Champion>;
-  // for now, using currentChamp as opposed to checking champions data
-  // currentChamp: Champion;
   items: Map<string, Item>;
-  masteries: Object[];
+  masteries: Map<string, Mastery>;
   runes: Map<string, Rune>;
   loading: boolean;
   testApi: string;
@@ -179,7 +179,7 @@ export class DataService {
             let json = res.json();
             // console.log(res.json());
 
-            // TO DO: make item from json.tree
+            // TO DO: make item tree from json.tree
 
             for (const item in json.data) {
               if (json.data.hasOwnProperty(item)) {
@@ -206,13 +206,56 @@ export class DataService {
     return promise;
   }
 
+  // get masteries
+  private getMasteries() {
+    const promise = new Promise((resolve, reject) => {
+      if (!this.masteries) {
+        let searchParams = new URLSearchParams();
+        let url = this.apiRoot;
+
+        if (!this.tempDataFlag) {
+          searchParams.set('masteryData', 'all')
+          url += '/static/masteries';
+        }
+        else {
+          url += 'masteries.json';
+        }
+        this.http.get(url, { search: searchParams })
+          .toPromise()
+          .then(res => {
+            // console.log('get items success .then');
+            let temp = new Map<string, Mastery>();
+            let json = res.json();
+            console.log(res.json());
+            // TO DO: use mastery tree from json.tree
+
+            for (const mastery in json.data) {
+              if (json.data.hasOwnProperty(mastery)) {
+                temp.set('' + json.data[mastery].id, new Mastery(json.data[mastery]));
+              }
+            }
+            console.log(temp.size);
+            this.masteries = new Map<string, Mastery>(Array.from(temp));
+            resolve();
+          })
+          .catch(err => {
+            console.log('error');
+            console.log(err);
+            reject();
+          });
+      }
+    });
+    return promise;
+  }
+
   getData() {
     if (!this.dataVersion) {
       // getmasteries;
       const runeDataPromise = this.getRunes();
       const champDataPromise = this.getChampions();
       const itemDataPromise = this.getItems();
-      return Promise.all([champDataPromise, runeDataPromise, itemDataPromise]);
+      const masteryDataPromise = this.getMasteries();
+      return Promise.all([champDataPromise, runeDataPromise, itemDataPromise, masteryDataPromise]);
     }
   }
 
@@ -244,5 +287,15 @@ export class DataService {
       });
     }
     return this.runes.get(runeId);
+  }
+
+  getMasteryById(masteryId: string): Mastery {
+    console.log('getMasteryById: ' + masteryId);
+    if (!this.dataVersion) {
+      this.getData().then((value) => {
+        return this.masteries.get(masteryId);
+      });
+    }
+    return this.masteries.get(masteryId);
   }
 }

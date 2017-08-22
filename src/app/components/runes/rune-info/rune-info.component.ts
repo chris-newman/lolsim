@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Rune } from "app/classes/rune";
+import { DataService } from "app/services/data.service";
+import { ActivatedRoute } from "@angular/router";
+import { SimService } from "app/services/sim.service";
 
 @Component({
   selector: 'app-rune-info',
@@ -6,10 +10,36 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rune-info.component.css']
 })
 export class RuneInfoComponent implements OnInit {
+  loading: boolean;
+  sub: any;
+  rune: Rune;
 
-  constructor() { }
+
+  constructor(protected loldata: DataService, private route: ActivatedRoute, protected sim: SimService) { }
 
   ngOnInit() {
+    console.log('mastery info on init');
+    if (!this.loldata.dataVersion) {
+      this.loading = true;
+      this.loldata.getData().then(() => {
+        this.sub = this.route.params.subscribe((params) => {
+          console.log('params: ' + params);
+          // this.champIconPromise = this.makeIconImagePromise(params.champKey);
+          this.rune = this.loldata.getRuneById(params.runeId);
+          console.log(this.rune);
+          this.loading = false;
+        });
+      });
+    } else {
+      this.sub = this.route.params.subscribe((params) => {
+        console.log('params: ' + params);
+        // this.champIconPromise = this.makeIconImagePromise(params.champKey);
+        this.rune = this.loldata.getRuneById(params.runeId);
+        console.log(this.rune);
+        this.loading = false;
+      });
+    }
+    // this.displayBlock = 'abilities';
+    // console.log('sim service selected champion: ' + this.sim.getChampion());
   }
-
 }

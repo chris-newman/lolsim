@@ -1,3 +1,11 @@
-<p>
-  mastery-list works!
-</p>
+<div *ngIf="loading" class="spinner-container">
+  <div class="spinner"></div>
+  <h2>Loading...</h2>
+</div>
+<div *ngIf="!this.loading" class="row bottom-spacing" align="center">
+  <div *ngFor="let mastery of masteries" class="col-lg-2 col-md-2 col-sm-3 col-4 bottom-spacing">
+    <a [attr.href]="makeInfoURL(mastery.id)"><h3>{{mastery.name}}</h3></a>
+    <!-- TO DO: add image src [src]="makeIconImageURL(item.id)"-->
+    <a [attr.href]="makeInfoURL(mastery.id)"><img class="img-fluid" alt=""></a>
+  </div>
+</div>
