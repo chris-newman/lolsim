@@ -48,7 +48,11 @@ export class MendService {
         coeff = '%' + this.simpleArrayToString(coeff);
       } else if (link === 'maxammo') { // azir w
         // do nothing
-      } else {
+      } else if (link === 'championlevel') {
+        // TODO: abilities that increase base on champion level
+
+      }
+      else {
         coeff = '%' + (100 * coeff);
       }
       coeff = this.addColor(coeff, link);
@@ -56,6 +60,7 @@ export class MendService {
     }
   };
 
+  // TODO: use switch-case
   addColor(coeff, link) {
     if (link === 'attackdamage' || link === 'scalingattackdamage' || link === '@dynamic.attackdamage') {
       coeff = '<span class = "ad-orange">' + coeff + ' AD</span>';
@@ -93,17 +98,33 @@ export class MendService {
   };
 
   // ***************************************************************************************************************
-  // Fix  champion data
+  // Fix item data
+  // ***************************************************************************************************************
+  mendItemData(json) {
+    this.mendTrinkets(json);
+    return json;
+  }
+
+  mendTrinkets(json) {
+    // trim '(Trinket)' from names for ids: 3340, 3341
+    json.data['3341'].name = json.data['3341'].name.substring(0, 13);
+    json.data['3340'].name = json.data['3340'].name.substring(0, 13);
+  };
+
+  // ***************************************************************************************************************
+  // Fix champion data
   // ***************************************************************************************************************
   mendChampData(json) {
     this.mendAatrox(json);
     this.mendAhri(json);
+    this.mendAlistar(json);
     this.mendAnivia(json);
     this.mendAnnie(json);
     this.mendAshe(json);
     this.mendAzir(json);
     return json;
   }
+
 
   // AATROX
   private mendAatrox(json) {
@@ -132,9 +153,31 @@ export class MendService {
         .64
       ]
     });
-    var token = json.data.Ahri.spells[1].sanitizedTooltip;
+    let token = json.data.Ahri.spells[1].sanitizedTooltip;
     token = token.replace(new RegExp('{{ f1 }}', 'g'), '{{ e3 }} (+{{ f1 }})');
     json.data.Ahri.spells[1].sanitizedTooltip = token;
+  };
+
+  // ALISTAR
+  private mendAlistar(json) {
+    let token = json.data.Alistar.spells[2].sanitizedTooltip;
+    token = token.replace(new RegExp('{{ f1 }}', 'g'), '{{ e1 }}');
+    json.data.Alistar.spells[2].sanitizedTooltip = token;
+
+    json.data.Alistar.spells[2].vars = [];
+    json.data.Alistar.spells[2].vars.push({
+      'key': 'f2',
+      'link': 'spelldamage',
+      'coeff': [
+        .4
+      ]
+    });
+    json.data.Alistar.spells[2].vars.push({
+      'key': 'f3',
+      'link': 'championlevel',
+      'base': 55,
+      'increase': 15
+    });
   };
 
   // ANIVIA
@@ -201,7 +244,7 @@ export class MendService {
     var token = json.data.Azir.spells[1].sanitizedTooltip;
     token = token.replace(new RegExp('{{ f2 }}', 'g'), '<span class = "base-white">45 +5' +
       ' every level up to 11, then +10 at every level </span>');
-      json.data.Azir.spells[1].sanitizedTooltip = token;
+    json.data.Azir.spells[1].sanitizedTooltip = token;
     // azir e  TO D0 - add var for 15% bonus hp
     var token = json.data.Azir.spells[2].sanitizedTooltip;
     token = token.replace(new RegExp('\\(\\+{{ f1 }}\\)', 'g'), '<span class = "hp-red">+');

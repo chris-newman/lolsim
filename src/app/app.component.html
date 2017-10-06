@@ -1,13 +1,53 @@
 <app-header></app-header>
-<div class="header-spacing"></div>
+<div class="fixed-navbar-offset"></div>
 <div class="container-fluid">
+  <!-- TODO: set the loading logic in the app component instead of each individual component -->
   <div class="row">
-    <!--mess around with different breakpoints as opposed to col-3 -->
     <div class="col-3 hidden-md-down">
-      <!--current simulation goes here-->
+      <!--TODO: simulation goes here-->
+      <div class="card sim sim-overview">
+        <!-- Card Header -->
+        <div class="card-header">
+          Simulation Overview
+        </div>
+
+        <!-- List Group -->
+        <div class="card-block sim-champ-block">
+          <h5 class="card-title">Champion</h5>
+          <div class="row sim-row">
+            <div class="col-4 sim-col">
+              <!-- TODO: fix error by creating separate sim component, moving loading logic to app component. -->
+              <img class="img-fluid sim-icon" [src]="common.makeChampIconURL(this.sim.getChampion()?.key)" alt="">
+            </div>
+            <!-- <div class="col-4 sim-col">
+              <h1 class="sim-vs">V.S</h1>
+            </div>
+            <div class="col-4 sim-col">
+              <img class="img-fluid sim-icon" [src]="" alt="">
+            </div> -->
+          </div>
+        </div>
+        <div class="card-block">
+          <h5 class="card-title">Items</h5>
+          <div class="row sim-row">
+            <div class="col-4 sim-col" *ngFor="let item of this.sim.itemSet.getItems()">
+              <img class="img-fluid sim-icon" [src]="common.makeItemIconURL(item.id)" alt="">
+            </div>
+            <!-- Shoutout to https://stackoverflow.com/questions/36535629/repeat-html-element-multiple-times-using-ngfor-based-on-a-number -->
+            <div class="col-4 sim-col" *ngFor="let x of Arr(needPlaceHolderItems()).fill(0)">
+              <a href="#/items"><img class="img-fluid sim-icon" [src]="" alt=""></a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="col">
       <router-outlet></router-outlet>
+      <div class="hidden-lg-up">
+        <div class="sim sim-bar">
+          fdsa
+        </div>
+      </div>
     </div>
   </div>
 </div>

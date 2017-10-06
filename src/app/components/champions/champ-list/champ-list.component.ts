@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from './../../../../app/services/data.service';
 import { SortService } from './../../../../app/services/sort.service';
 import { Champion } from 'app/classes/champion';
+import { CommonService } from "app/services/common.service";
 
 @Component({
   selector: 'app-champ-list',
@@ -14,7 +15,7 @@ export class ChampListComponent implements OnInit {
   arrayOfKeys: any[];
   champions: Champion[];
 
-  constructor(protected loldata: DataService) { }
+  constructor(protected loldata: DataService, protected common: CommonService) { }
 
   ngOnInit() {
 
@@ -32,6 +33,5 @@ export class ChampListComponent implements OnInit {
   }
 
   // cool 1-line ES6 functions (instead of old 4-line ES5 functions)
-  makeIconImageURL = (champKey) => `http://ddragon.leagueoflegends.com/cdn/${this.loldata.dataVersion}/img/champion/${champKey}.png`;
   makeInfoURL = (champKey) => `#/champions/${champKey}`;
 }

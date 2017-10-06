@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { Routes, RouterModule, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
+import {Routes, RouterModule, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 // app imports
@@ -23,6 +23,7 @@ import { DataService } from './services/data.service';
 import { SortService } from './services/sort.service';
 import { MendService } from './services/mend.service';
 import { SimService } from './services/sim.service';
+import { CommonService } from './services/common.service';
 import { Champion } from 'app/classes/champion';
 
 // @Injectable()
@@ -42,10 +43,10 @@ const routes: Routes = [
   {path: '', redirectTo: 'champions', pathMatch: 'full'},
   {path: 'champions', component: ChampListComponent},
   {path: 'champions/:champKey', component: ChampInfoComponent},
-  {path: 'masteries', component: MasteryListComponent},
-  {path: 'masteries/:masteryId', component: MasteryInfoComponent},
-  {path: 'runes', component: RuneListComponent},
-  {path: 'runes/:runeId', component: RuneInfoComponent},
+  // {path: 'masteries', component: MasteryListComponent},
+  // {path: 'masteries/:masteryId', component: MasteryInfoComponent},
+  // {path: 'runes', component: RuneListComponent},
+  // {path: 'runes/:runeId', component: RuneInfoComponent},
   {path: 'items', component: ItemListComponent},
   {path: 'items/:itemId', component: ItemInfoComponent},
   // {path: 'help', component: HelpComponent}
@@ -72,10 +73,10 @@ const routes: Routes = [
     NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
-    HttpModule,
+    HttpClientModule,
     RouterModule.forRoot(routes, {useHash: true})
   ],
-  providers: [DataService, SortService, MendService, SimService],
+  providers: [DataService, SortService, MendService, SimService, CommonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

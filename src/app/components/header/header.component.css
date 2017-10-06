@@ -119,3 +119,8 @@ li {
         transform: translate3d(0, -50%, 0);
     }
 }
+
+/* fix navbar background color, TODO: move this to global stylsheet*/
+.navbar{
+  background-color: #08101a;
+}

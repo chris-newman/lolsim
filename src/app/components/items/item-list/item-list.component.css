@@ -1,6 +1,6 @@
-h2, h3 {
+h2, h3, h5 {
   color: #c3c3c3;
-  font-size: 1em;
+  font-size: 0.875em;
 }
 
 .fixed-size{
@@ -10,4 +10,95 @@ h2, h3 {
 
 .bottom-spacing{
   padding-bottom: 15px;
+}
+
+.item-btn{
+  width: 68px;
+  height: 68px;
+  float: right;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+/* reused stuff */
+.item-icon {
+  border: 2px solid #666666;
+  float: left;
+  margin-right: 8px;
+}
+.item-box {
+  margin-bottom: 10px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #212526;
+  overflow: hidden;
+}
+
+/* TODO: figure out a global font size */
+.item-name {
+  /* font-size: 20px; */
+  margin-top: 2px;
+  margin-left: 0px;
+  text-align: left;
+}
+
+.item-cost {
+  text-align: left;
+  margin-top: 5px;
+  color: #f2ea92;
+}
+
+
+
+
+
+
+/*GOLD COIN CSS*/
+.coin p {
+  font-family: georgia;
+  font-style: italic;
+  position: absolute;
+  font-size: 8px;
+  z-index: 700;
+  top: 2px;
+  left: 5px;
+}
+
+.coin.gold p {
+  color: rgba(202, 145, 0, 1);
+  margin: 0px;
+}
+
+.coin {
+  z-index: 50;
+  content: "";
+  width: 15px;
+  height: 15px;
+  float: left;
+  /* margin-top: 5px; */
+  margin-right: 5px;
+  display: inline-block;
+  position: relative;
+  border-radius: 150px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, .1);
+}
+
+.coin:after {
+  display: block;
+  top: 4px;
+  left: 4px;
+  position: absolute;
+  border-radius: 150px;
+}
+
+.coin:before {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 150px;
+  z-index: 500;
+}
+
+.gold {
+  background: linear-gradient(45deg, rgba(242, 215, 12, 1) 15%, rgba(255, 255, 255, 1) 56%, rgba(252, 235, 0, 1) 85%);
 }
