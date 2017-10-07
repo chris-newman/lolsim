@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DataService } from './../../../../app/services/data.service';
 import { Champion } from 'app/classes/champion';
 import { Spell } from 'app/classes/spell';
-import { SimService } from "app/services/sim.service";
+import { SimService } from 'app/shared/sim.service';
+import { DataService } from 'app/shared/data.service';
+
 
 @Component({
   selector: 'app-champ-info',

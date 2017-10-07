@@ -4,13 +4,13 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { Champion } from 'app/classes/champion';
-import { SortService } from 'app/services/sort.service';
 import { Stats } from 'app/classes/stats';
 import { Spell } from 'app/classes/spell';
-import { MendService } from 'app/services/mend.service';
-import { Item } from "app/classes/item";
-import { Rune } from "app/classes/rune";
-import { Mastery } from "app/classes/mastery";
+import { Item } from 'app/classes/item';
+import { Rune } from 'app/classes/rune';
+import { Mastery } from 'app/classes/mastery';
+import { SortService } from 'app/shared/sort.service';
+import { MendService } from 'app/shared/mend.service';
 // TO DO: look into grouping imports from classes directory into a barrel
 
 @Injectable()

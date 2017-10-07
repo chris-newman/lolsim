@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Rune } from "app/classes/rune";
-import { DataService } from "app/services/data.service";
+import { Rune } from 'app/classes/rune';
+import { DataService } from 'app/shared/data.service';
 
 @Component({
   selector: 'app-rune-list',

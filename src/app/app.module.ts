@@ -15,43 +15,25 @@ import { ChampListComponent } from './components/champions/champ-list/champ-list
 import { ChampInfoComponent } from './components/champions/champ-info/champ-info.component';
 import { ItemInfoComponent } from './components/items/item-info/item-info.component';
 import { ItemListComponent } from './components/items/item-list/item-list.component';
-import { RuneListComponent } from './components/runes/rune-list/rune-list.component';
-import { RuneInfoComponent } from './components/runes/rune-info/rune-info.component';
-import { MasteryListComponent } from './components/masteries/mastery-list/mastery-list.component';
-import { MasteryInfoComponent } from './components/masteries/mastery-info/mastery-info.component';
-import { DataService } from './services/data.service';
-import { SortService } from './services/sort.service';
-import { MendService } from './services/mend.service';
-import { SimService } from './services/sim.service';
-import { CommonService } from './services/common.service';
+// import { RuneListComponent } from './components/runes/rune-list/rune-list.component';
+// import { RuneInfoComponent } from './components/runes/rune-info/rune-info.component';
+// import { MasteryListComponent } from './components/masteries/mastery-list/mastery-list.component';
+// import { MasteryInfoComponent } from './components/masteries/mastery-info/mastery-info.component';
+
+
+// Shared Module
+// import { DataService } from './services/data.service';
+// import { SortService } from './services/sort.service';
+// import { MendService } from './services/mend.service';
+// import { SimService } from './services/sim.service';
+// import { CommonService } from './services/common.service';
+
+
 import { Champion } from 'app/classes/champion';
 
-// @Injectable()
-// class ChampResolver implements Resolve<Champion> {
-//   constructor(private backend: DataService) {}
-//   resolve(
-//     route: ActivatedRouteSnapshot,
-//     state: RouterStateSnapshot
-//   ): any {
-//     console.log('RESOLVER: calling get champ by key from resolver?');
-//     return this.backend.getChampionByKey(route.params.champKey);
-//   }
-// }
-
-//Routes
-const routes: Routes = [
-  {path: '', redirectTo: 'champions', pathMatch: 'full'},
-  {path: 'champions', component: ChampListComponent},
-  {path: 'champions/:champKey', component: ChampInfoComponent},
-  // {path: 'masteries', component: MasteryListComponent},
-  // {path: 'masteries/:masteryId', component: MasteryInfoComponent},
-  // {path: 'runes', component: RuneListComponent},
-  // {path: 'runes/:runeId', component: RuneInfoComponent},
-  {path: 'items', component: ItemListComponent},
-  {path: 'items/:itemId', component: ItemInfoComponent},
-  // {path: 'help', component: HelpComponent}
-  {path: '**', redirectTo: 'champions'}
-];
+// Routes
+import { routing } from 'app/app.routing';
+import { SharedModule } from 'app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -64,19 +46,21 @@ const routes: Routes = [
     ChampInfoComponent,
     ItemInfoComponent,
     ItemListComponent,
-    RuneListComponent,
-    RuneInfoComponent,
-    MasteryListComponent,
-    MasteryInfoComponent,
+    // RuneListComponent,
+    // RuneInfoComponent,
+    // MasteryListComponent,
+    // MasteryInfoComponent,
   ],
   imports: [
     NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(routes, {useHash: true})
+    SharedModule.forRoot(),
+    routing
+    // RouterModule.forRoot(routes, {useHash: true})
   ],
-  providers: [DataService, SortService, MendService, SimService, CommonService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

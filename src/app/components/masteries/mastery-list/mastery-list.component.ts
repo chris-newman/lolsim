@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Mastery } from "app/classes/mastery";
-import { DataService } from "app/services/data.service";
+import { Mastery } from 'app/classes/mastery';
+import { DataService } from 'app/shared/data.service';
+
 
 @Component({
   selector: 'app-mastery-list',

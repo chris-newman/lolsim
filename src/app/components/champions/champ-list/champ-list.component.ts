@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-// import {Observable} from 'rxjs/Observable';
-import { DataService } from './../../../../app/services/data.service';
-import { SortService } from './../../../../app/services/sort.service';
 import { Champion } from 'app/classes/champion';
-import { CommonService } from "app/services/common.service";
+import { DataService } from 'app/shared/data.service';
+import { CommonService } from 'app/shared/common.service';
 
 @Component({
   selector: 'app-champ-list',
@@ -33,5 +31,5 @@ export class ChampListComponent implements OnInit {
   }
 
   // cool 1-line ES6 functions (instead of old 4-line ES5 functions)
-  makeInfoURL = (champKey) => `#/champions/${champKey}`;
+  makeInfoURL = (champKey) => `/champions/${champKey}`;
 }

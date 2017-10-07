@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Rune } from "app/classes/rune";
-import { DataService } from "app/services/data.service";
-import { ActivatedRoute } from "@angular/router";
-import { SimService } from "app/services/sim.service";
+import { Rune } from 'app/classes/rune';
+import { ActivatedRoute } from '@angular/router';
+import { DataService } from 'app/shared/data.service';
+import { SimService } from 'app/shared/sim.service';
 
 @Component({
   selector: 'app-rune-info',

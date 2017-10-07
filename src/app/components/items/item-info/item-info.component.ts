@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DataService } from "app/services/data.service";
-import { SimService } from "app/services/sim.service";
-import { Item } from "app/classes/item";
+
+import { Item } from 'app/classes/item';
+import { DataService } from 'app/shared/data.service';
+import { SimService } from 'app/shared/sim.service';
 
 @Component({
   selector: 'app-item-info',
