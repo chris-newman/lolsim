@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Champion } from 'app/classes/champion';
 import { Spell } from 'app/classes/spell';
-import { SimService } from 'app/shared/sim.service';
-import { DataService } from 'app/shared/data.service';
+import { SimService } from 'app/core/sim.service';
+import { DataService } from 'app/core/data.service';
 
 
 @Component({

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DataService } from 'app/shared/data.service';
+import { DataService } from 'app/core/data.service';
 
 @Injectable()
 export class CommonService {

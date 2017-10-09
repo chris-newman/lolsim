@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from 'app/classes/item';
-import { DataService } from 'app/shared/data.service';
-import { SimService } from 'app/shared/sim.service';
-import { CommonService } from 'app/shared/common.service';
+import { DataService } from 'app/core/data.service';
+import { SimService } from 'app/core/sim.service';
+import { CommonService } from 'app/core/common.service';
 
 
 @Component({

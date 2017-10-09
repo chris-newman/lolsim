@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Champion } from 'app/classes/champion';
-import { DataService } from 'app/shared/data.service';
-import { CommonService } from 'app/shared/common.service';
+import { DataService } from 'app/core/data.service';
+import { CommonService } from 'app/core/common.service';
 
 @Component({
   selector: 'app-champ-list',

@@ -9,8 +9,8 @@ import { Spell } from 'app/classes/spell';
 import { Item } from 'app/classes/item';
 import { Rune } from 'app/classes/rune';
 import { Mastery } from 'app/classes/mastery';
-import { SortService } from 'app/shared/sort.service';
-import { MendService } from 'app/shared/mend.service';
+import { SortService } from 'app/core/sort.service';
+import { MendService } from 'app/core/mend.service';
 // TO DO: look into grouping imports from classes directory into a barrel
 
 @Injectable()

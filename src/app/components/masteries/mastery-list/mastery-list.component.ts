@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Mastery } from 'app/classes/mastery';
-import { DataService } from 'app/shared/data.service';
+import { DataService } from 'app/core/data.service';
 
 
 @Component({

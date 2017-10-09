@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 import { Mastery } from 'app/classes/mastery';
-import { DataService } from 'app/shared/data.service';
-import { SimService } from 'app/shared/sim.service';
+import { DataService } from 'app/core/data.service';
+import { SimService } from 'app/core/sim.service';
 
 @Component({
   selector: 'app-mastery-info',
