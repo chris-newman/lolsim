@@ -20,26 +20,15 @@ export class MasteryInfoComponent implements OnInit {
 
   ngOnInit() {
     console.log('mastery info on init');
-    if (!this.loldata.dataVersion) {
-      this.loading = true;
-      this.loldata.getData().then(() => {
-        this.sub = this.route.params.subscribe((params) => {
-          console.log('params: ' + params);
-          // this.champIconPromise = this.makeIconImagePromise(params.champKey);
-          this.mastery = this.loldata.getMasteryById(params.masteryId);
-          console.log(this.mastery);
-          this.loading = false;
-        });
-      });
-    } else {
-      this.sub = this.route.params.subscribe((params) => {
-        console.log('params: ' + params);
-        // this.champIconPromise = this.makeIconImagePromise(params.champKey);
-        this.mastery = this.loldata.getMasteryById(params.masteryId);
-        console.log(this.mastery);
-        this.loading = false;
-      });
-    }
+
+    this.sub = this.route.params.subscribe((params) => {
+      console.log('params: ' + params);
+      // this.champIconPromise = this.makeIconImagePromise(params.champKey);
+      this.mastery = this.loldata.getMasteryById(params.masteryId);
+      console.log(this.mastery);
+      this.loading = false;
+    });
+
     // this.displayBlock = 'abilities';
     // console.log('sim service selected champion: ' + this.sim.getChampion());
   }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { DataService } from 'app/core/data.service';
 
 @Injectable()
-export class CommonService {
+export class HyperlinkingService {
 
   constructor(protected loldata: DataService) { }
 

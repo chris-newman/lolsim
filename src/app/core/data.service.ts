@@ -76,7 +76,7 @@ export class DataService {
               if (json['data'].hasOwnProperty(champ)) {
                 // get stats data
                 let ritoStats = new Stats(json['data'][champ].stats);
-                //get spells data
+                // get spells data
                 const ritoSpells = new Array<Spell>();
                 for (let i = 0; i < json['data'][champ].spells.length; i++) {
 

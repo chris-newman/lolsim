@@ -1,6 +1,14 @@
 <app-header></app-header>
 <div class="fixed-navbar-offset"></div>
-<div class="container-fluid">
+<div *ngIf="loading">
+  <div class="spinner-container">
+    <div class="spinner"></div>
+  </div>
+  <div class="spinner-title-container">
+    <h2 class="spinner-title">Loading...</h2>
+  </div>
+</div>
+<div class="container-fluid" *ngIf="!loading">
   <!-- TODO: set the loading logic in the app component instead of each individual component -->
   <div class="row">
     <div class="col-3 hidden-md-down">
@@ -35,7 +43,9 @@
             </div>
             <!-- Shoutout to https://stackoverflow.com/questions/36535629/repeat-html-element-multiple-times-using-ngfor-based-on-a-number -->
             <div class="col-4 sim-col" *ngFor="let x of Arr(needPlaceHolderItems()).fill(0)">
-              <a href="#/items"><img class="img-fluid sim-icon" [src]="" alt=""></a>
+              <a href="#/items">
+                <img class="img-fluid sim-icon" [src]="" alt="">
+              </a>
             </div>
           </div>
         </div>

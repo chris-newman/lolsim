@@ -15,17 +15,9 @@ export class MasteryListComponent implements OnInit {
   constructor(protected loldata: DataService) { }
 
   ngOnInit() {
-    if (!this.loldata.dataVersion) {
-      this.loading = true;
-      // console.log('calling get masteries from list-view');
-      this.loldata.getData().then(() => {
-        this.loading = false;
-        this.masteries = Array.from(this.loldata.masteries.values());
-      });
-    } else {
-      this.masteries = Array.from(this.loldata.masteries.values());
-    }
+    this.masteries = Array.from(this.loldata.masteries.values());
   }
+
 
   // TO DO: decide whether or not to move this function to a common service
   makeInfoURL = (masteryId) => `#/masteries/${masteryId}`;

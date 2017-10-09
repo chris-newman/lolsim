@@ -8,6 +8,11 @@ textarea {
     /*color: #c3c3c3;*/
 }
 
+h2, h3 {
+  color: #c3c3c3;
+  font-size: 1em;
+}
+
 .base-white {
     color: #ffffff;
     font-weight: bold;
@@ -58,7 +63,15 @@ textarea {
   margin-top: 0em;
   height: 25em;
 }
-.spinner-container > h2 {
+
+.spinner-title-container{
+  position: absolute;
+  top: calc(50% + 11em);
+  width: 100%;
+}
+
+.spinner-title {
+  font-size: 2em;
   text-align: center;
 }
 

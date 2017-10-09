@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Item } from 'app/classes/item';
 import { DataService } from 'app/core/data.service';
 import { SimService } from 'app/core/sim.service';
-import { CommonService } from 'app/core/common.service';
+import { HyperlinkingService } from 'app/core/hyperlinking.service';
 
 
 @Component({
@@ -11,29 +11,17 @@ import { CommonService } from 'app/core/common.service';
   styleUrls: ['./item-list.component.css']
 })
 export class ItemListComponent implements OnInit {
-  loading: boolean;
   items: Array<Item>;
   itemTree: any;
-  constructor(protected loldata: DataService, protected sim: SimService, protected common: CommonService) { }
+  constructor(protected loldata: DataService, protected sim: SimService, protected common: HyperlinkingService) { }
 
   ngOnInit() {
-    if (!this.loldata.dataVersion) {
-      this.loading = true;
-      console.log('calling get champions from list-view');
-      this.loldata.getData().then(() => {
-        this.loading = false;
-        this.items = Array.from(this.loldata.items.values());
-        this.itemTree = this.loldata.getItemTree();
-        console.log(this.itemTree);
-      });
-    } else {
-      this.items = Array.from(this.loldata.items.values());
-      this.itemTree = this.loldata.getItemTree();
-      console.log(this.itemTree);
-    }
+    this.items = Array.from(this.loldata.items.values());
+    this.itemTree = this.loldata.getItemTree();
+    console.log(this.itemTree);
   }
 
-  makeInfoURL = (itemId) => `#/items/${itemId}`;
+  makeInfoURL = (itemId) => `/items/${itemId}`;
   // makeIconImageURL = (itemId) => `http://ddragon.leagueoflegends.com/cdn/${this.loldata.dataVersion}/img/item/${itemId}.png`;
 
 

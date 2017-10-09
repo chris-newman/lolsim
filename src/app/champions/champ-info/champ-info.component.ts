@@ -17,7 +17,6 @@ export class ChampInfoComponent implements OnInit, OnDestroy {
   sub: any;
   statKeys: Array<string>;
   champBackground: string;
-  loading: boolean;
   imageUrl: string;
   champIconPromise: Promise<{}>;
   champSplashPromise: Promise<{}>;
@@ -28,30 +27,16 @@ export class ChampInfoComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log('champ info on init');
-    if (!this.loldata.dataVersion) {
-      this.loading = true;
-      this.loldata.getData().then(() => {
-        this.sub = this.route.params.subscribe((params) => {
-          // console.log(params);
-          this.champIconPromise = this.makeIconImagePromise(params.champKey);
-          this.champSplashPromise = this.makeSplashImagePromise(params.champKey);
-          this.champion = this.loldata.getChampionByKey(params.champKey);
-          console.log(this.champion);
-          this.champion.stats.setLevel(18);
-          // console.log("bonus attack speed at level 18:" this.champion.stats.)
-          this.loading = false;
-        });
-      });
-    } else {
-      this.sub = this.route.params.subscribe((params) => {
-        console.log(params);
-        this.champIconPromise = this.makeIconImagePromise(params.champKey);
-        this.champSplashPromise = this.makeSplashImagePromise(params.champKey);
-        this.champion = this.loldata.getChampionByKey(params.champKey);
-        console.log(this.champion);
-        this.champion.stats.setLevel(18);
-      });
-    }
+
+    this.sub = this.route.params.subscribe((params) => {
+      console.log(params);
+      this.champIconPromise = this.makeIconImagePromise(params.champKey);
+      this.champSplashPromise = this.makeSplashImagePromise(params.champKey);
+      this.champion = this.loldata.getChampionByKey(params.champKey);
+      console.log(this.champion);
+      this.champion.stats.setLevel(18);
+    });
+
     this.displayBlock = 'abilities';
     console.log('sim service selected champion: ' + this.sim.getChampion());
   }
