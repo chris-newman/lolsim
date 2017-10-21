@@ -8,4 +8,4 @@ const routes: Routes = [
   {path: '**', redirectTo: 'champions'}
 ];
 
-export const routing = RouterModule.forRoot(routes, {useHash: false});
+export const routing = RouterModule.forRoot(routes, {useHash: true});

@@ -41,15 +41,13 @@ export class DataService {
     }
   }
 
-
   // populate Champion array with initial data
   private getChampions() {
-    // console.log('get champions called');
     // console.log('getChampions() called');
     const promise = new Promise((resolve, reject) => {
       if (!this.champions) {
 
-        let searchParams = new HttpParams();
+        const searchParams = new HttpParams();
         let url = this.apiRoot;
 
         if (!this.tempDataFlag) {
@@ -66,8 +64,7 @@ export class DataService {
           .toPromise()
           .then(json => {
             console.log('get champions success .then');
-
-            let temp = new Map<string, Champion>();
+            const temp = new Map<string, Champion>();
             // const json = res.json();
             // const json = JSON.parse(res.toString());
             this.mend.mendChampData(json);
@@ -75,7 +72,7 @@ export class DataService {
             for (const champ in json['data']) {
               if (json['data'].hasOwnProperty(champ)) {
                 // get stats data
-                let ritoStats = new Stats(json['data'][champ].stats);
+                const ritoStats = new Stats(json['data'][champ].stats);
                 // get spells data
                 const ritoSpells = new Array<Spell>();
                 for (let i = 0; i < json['data'][champ].spells.length; i++) {
@@ -112,58 +109,12 @@ export class DataService {
     return promise;
   };
 
-  // get runes
-  private getRunes() {
-    // console.log('get runes called');
-    const promise = new Promise((resolve, reject) => {
-      if (!this.runes) {
-        let searchParams = new HttpParams();
-        let url = this.apiRoot;
-        if (!this.tempDataFlag) {
-          // const champDataParams = ['image', 'passive', 'spells', 'stats', 'tags'];
-          url += '/static/runes';
-          searchParams.set('runeData', 'stats'); // using 'all' until Rito fixes their shit
-        }
-        else {
-          url += 'runes.json';
-        }
-        // console.log('http call for getRunes');
-        this.http.get(url, { params: searchParams })
-          .toPromise()
-          .then(json => {
-            let temp = new Map<string, Rune>();
-            // const json = res.json();
-            console.log(json);
-            this.dataVersion = json['version'];
-            for (const rune in json['data']) {
-              if (json['data'].hasOwnProperty(rune)) {
-                // exclude some of the data, we only want t3 runes
-                if (json['data'][rune].rune.tier === '3') {
-                  temp.set('' + json['data'][rune].id, new Rune(json['data'][rune]));
-                }
-              }
-            }
-            // sort runes before putting them in
-            this.runes = new Map<string, Rune>(Array.from(temp).sort(this.sort.ascendingRuneCategoryMap));
-            console.log(this.runes.size);
-            resolve();
-          })
-          .catch(err => {
-            console.log('error');
-            console.log(err);
-          });
-      };
-      // resolve();
-    });
-    return promise;
-  }
-
   // get items
   private getItems() {
     // console.log('get items called');
     const promise = new Promise((resolve, reject) => {
       if (!this.items) {
-        let searchParams = new HttpParams();
+        const searchParams = new HttpParams();
         let url = this.apiRoot;
 
         if (!this.tempDataFlag) {
@@ -178,71 +129,29 @@ export class DataService {
           .toPromise()
           .then(json => {
             // console.log('get items success .then');
-            let temp = new Map<string, Item>();
+            const temp = new Map<string, Item>();
             // let json = res.json();
 
+            // mend item data
             this.mend.mendItemData(json);
             // TO DO: do something with itemTree
             this.itemTree = json['tree'];
-            const ignoreItems = [3634, 3631, 3641, 3636, 3647, 3643, 3642, 3635,
-              3640, 3007, 3008, 3029, 3073, 3671, 3672, 3673, 3674, 3675];
 
+            // exlude items, TODO: improve perf
+            this.mend.noEventItems(json);
+            this.mend.srItemsOnly(json);
+            this.mend.noChampExclusives(json);
+            this.mend.onlyPurchaseable(json);
+
+            // map items
             for (const item in json['data']) {
               if (json['data'].hasOwnProperty(item)) {
-                let x = json['data'][item];
-                // TODO: move exclusion logic to mend service
-                // if item is available on SR and is not champion specific
-                if (x.maps['11'] && !x.requiredChampion && x.gold.purchasable && !ignoreItems.includes(x.id)) {
-                  temp.set('' + json['data'][item].id, new Item(json['data'][item]));
-                }
-
+                temp.set('' + json['data'][item].id, new Item(json['data'][item]));
               }
             }
-            // console.log(temp.size);
+
+            // sort by gold cost
             this.items = new Map<string, Item>(Array.from(temp).sort(this.sort.ascendingGoldCostMap));
-            // let doodoomap = new Map<string, Item>
-            resolve();
-          })
-          .catch(err => {
-            console.log('error');
-            console.log(err);
-            reject();
-          });
-      }
-    });
-    return promise;
-  }
-
-  // get masteries
-  private getMasteries() {
-    const promise = new Promise((resolve, reject) => {
-      if (!this.masteries) {
-        let searchParams = new HttpParams();
-        let url = this.apiRoot;
-
-        if (!this.tempDataFlag) {
-          searchParams.set('masteryData', 'all')
-          url += '/static/masteries';
-        }
-        else {
-          url += 'masteries.json';
-        }
-        this.http.get(url, { params: searchParams })
-          .toPromise()
-          .then(json => {
-            // console.log('get items success .then');
-            let temp = new Map<string, Mastery>();
-            // let json = res.json();
-            // console.log(res.json());
-            // TO DO: use mastery tree from json.tree
-
-            for (const mastery in json['data']) {
-              if (json['data'].hasOwnProperty(mastery)) {
-                temp.set('' + json['data'][mastery].id, new Mastery(json['data'][mastery]));
-              }
-            }
-            console.log(temp.size);
-            this.masteries = new Map<string, Mastery>(Array.from(temp));
             resolve();
           })
           .catch(err => {
@@ -257,11 +166,9 @@ export class DataService {
 
   getData() {
     if (!this.dataVersion) {
-      // const runeDataPromise = this.getRunes();
       const champDataPromise = this.getChampions();
       const itemDataPromise = this.getItems();
-      // const masteryDataPromise = this.getMasteries();
-      return Promise.all([champDataPromise, itemDataPromise]); //, runeDataPromise, masteryDataPromise]);
+      return Promise.all([champDataPromise, itemDataPromise]);
     }
   }
 
@@ -283,26 +190,6 @@ export class DataService {
       });
     }
     return this.items.get(itemId);
-  }
-
-  getRuneById(runeId: string): Rune {
-    console.log('getRuneById: ' + runeId);
-    if (!this.dataVersion) {
-      this.getData().then((value) => {
-        return this.runes.get(runeId);
-      });
-    }
-    return this.runes.get(runeId);
-  }
-
-  getMasteryById(masteryId: string): Mastery {
-    console.log('getMasteryById: ' + masteryId);
-    if (!this.dataVersion) {
-      this.getData().then((value) => {
-        return this.masteries.get(masteryId);
-      });
-    }
-    return this.masteries.get(masteryId);
   }
 
   getItemTree() {

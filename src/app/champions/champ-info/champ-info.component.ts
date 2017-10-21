@@ -5,7 +5,6 @@ import { Spell } from 'app/classes/spell';
 import { SimService } from 'app/core/sim.service';
 import { DataService } from 'app/core/data.service';
 
-
 @Component({
   selector: 'app-champ-info',
   templateUrl: './champ-info.component.html',
@@ -23,12 +22,16 @@ export class ChampInfoComponent implements OnInit, OnDestroy {
   displayBlock: string;
   // routeParams: any;
 
-  constructor(protected loldata: DataService, private route: ActivatedRoute, protected sim: SimService) { }
+  constructor(
+    protected loldata: DataService,
+    private route: ActivatedRoute,
+    protected sim: SimService
+  ) {}
 
   ngOnInit() {
     console.log('champ info on init');
 
-    this.sub = this.route.params.subscribe((params) => {
+    this.sub = this.route.params.subscribe(params => {
       console.log(params);
       this.champIconPromise = this.makeIconImagePromise(params.champKey);
       this.champSplashPromise = this.makeSplashImagePromise(params.champKey);
@@ -52,7 +55,8 @@ export class ChampInfoComponent implements OnInit, OnDestroy {
   // had to use a promise, to fix the 'undefined' error that occurs when user goes directly to a champ info page first
   makeIconImagePromise(champKey) {
     return new Promise((resolve, reject) => {
-      const imageUrl = `http://ddragon.leagueoflegends.com/cdn/${this.loldata.dataVersion}/img/champion/${champKey}.png`;
+      const imageUrl = `http://ddragon.leagueoflegends.com/cdn/${this.loldata
+        .dataVersion}/img/champion/${champKey}.png`;
       resolve(imageUrl);
     });
   }
@@ -74,10 +78,18 @@ export class ChampInfoComponent implements OnInit, OnDestroy {
 
   makeHotkey(index) {
     switch (index) {
-      case (0): return 'Q';
-      case (1): return 'W';
-      case (2): return 'E';
-      case (3): return 'R';
+      case 0:
+        return 'Q';
+      case 1:
+        return 'W';
+      case 2:
+        return 'E';
+      case 3:
+        return 'R';
     }
+  }
+
+  setChampion(champ) {
+    this.sim.setChampion(champ);
   }
 }

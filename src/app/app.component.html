@@ -9,7 +9,6 @@
   </div>
 </div>
 <div class="container-fluid" *ngIf="!loading">
-  <!-- TODO: set the loading logic in the app component instead of each individual component -->
   <div class="row">
     <div class="col-3 hidden-md-down">
       <!--TODO: simulation goes here-->
@@ -24,7 +23,7 @@
           <h5 class="card-title">Champion</h5>
           <div class="row sim-row">
             <div class="col-4 sim-col">
-              <!-- TODO: fix error by creating separate sim component, moving loading logic to app component. -->
+              <!-- TODO: fix error by creating separate sim component -->
               <img class="img-fluid sim-icon" [src]="common.makeChampIconURL(this.sim.getChampion()?.key)" alt="">
             </div>
             <!-- <div class="col-4 sim-col">
@@ -55,7 +54,6 @@
       <router-outlet></router-outlet>
       <div class="hidden-lg-up">
         <div class="sim sim-bar">
-          fdsa
         </div>
       </div>
     </div>

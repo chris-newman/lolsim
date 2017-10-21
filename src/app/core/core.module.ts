@@ -7,6 +7,7 @@ import { MendService } from 'app/core/mend.service';
 import { HyperlinkingService } from 'app/core/hyperlinking.service';
 import { SimService } from 'app/core/sim.service';
 import { HeaderComponent } from 'app/core/header/header.component';
+import { AboutComponent } from './about/about.component';
 
 
 @NgModule({
@@ -14,7 +15,7 @@ import { HeaderComponent } from 'app/core/header/header.component';
     CommonModule,
     RouterModule
   ],
-  declarations: [HeaderComponent],
+  declarations: [HeaderComponent, AboutComponent],
   exports: [HeaderComponent]
 })
 export class CoreModule {

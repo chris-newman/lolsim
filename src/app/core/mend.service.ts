@@ -53,35 +53,25 @@ export class MendService {
 
       }
       else {
-        coeff = '%' + (100 * coeff);
+        coeff = '%' + (100 * coeff).toFixed(0);
       }
       coeff = this.addColor(coeff, link);
       spell.displayTooltip = spell.displayTooltip.replace(new RegExp('{{ ' + key + ' }}', 'g'), coeff);
     }
   };
 
-  // TODO: use switch-case
   addColor(coeff, link) {
-    if (link === 'attackdamage' || link === 'scalingattackdamage' || link === '@dynamic.attackdamage') {
-      coeff = '<span class = "ad-orange">' + coeff + ' AD</span>';
-    } else if (link === 'bonusattackdamage') {
-      coeff = '<span class = "ad-orange">' + coeff + ' Bonus AD</span>';
-    } else if (link === 'spelldamage' || link === '@dynamic.abilitypower') {
-      coeff = '<span class = "ap-green">' + coeff + ' AP</span>';
-    } else if (link === 'bonusspelldamage') {
-      coeff = '<span class = "ap-green">' + coeff + ' Bonus AP</span>';
-    } else if (link === 'armor') {
-      coeff = '<span class = "armor-yellow">' + coeff + ' Armor</span>';
-    } else if (link === 'bonusarmor') {
-      coeff = '<span class = "armor-yellow">' + coeff + ' Bonus Armor</span>';
-    } else if (link === 'bonusspellblock') {
-      coeff = '<span class = "mr-purple">' + coeff + ' Bonus MR</span>';
-    } else if (link === 'bonushealth') {
-      coeff = '<span class = "hp-red">' + coeff + ' Bonus Health</span>';
-    } else if (link === 'maxmana') {
-      coeff = '<span class = "mana-blue">' + coeff + ' Maximum Mana</span>';
-    } else {
-      coeff = '<span class = "base-black">' + coeff + '</span>';
+    switch (link) {
+      case 'attackdamage' || 'scalingattackdamage' || '@dynamic.attackdamage': coeff = '<span class = "ad-orange">' + coeff + ' AD</span>'; break;
+      case 'bonusattackdamage': coeff = '<span class = "ad-orange">' + coeff + ' Bonus AD</span>'; break;
+      case 'spelldamage': coeff = '<span class = "ap-green">' + coeff + ' AP</span>'; break;
+      case 'bonusspelldamage': coeff = '<span class = "ap-green">' + coeff + ' Bonus AP</span>'; break;
+      case 'armor': coeff = '<span class = "armor-yellow">' + coeff + ' Armor</span>'; break;
+      case 'bonusarmor': coeff = '<span class = "armor-yellow">' + coeff + ' Bonus Armor</span>'; break;
+      case 'bonusspellblock': coeff = '<span class = "mr-purple">' + coeff + ' Bonus MR</span>'; break;
+      case 'bonushealth': coeff = '<span class = "hp-red">' + coeff + ' Bonus Health</span>'; break;
+      case 'maxmana': coeff = '<span class = "mana-blue">' + coeff + ' Maximum Mana</span>'; break;
+      default: coeff = '<span class = "base-black">' + coeff + '</span>'; break;
     }
     return coeff;
   };
@@ -101,7 +91,7 @@ export class MendService {
   // Fix item data
   // ***************************************************************************************************************
   mendItemData(json) {
-    this.mendTrinkets(json);
+    json = this.mendTrinkets(json);
     return json;
   }
 
@@ -109,7 +99,49 @@ export class MendService {
     // trim '(Trinket)' from names for ids: 3340, 3341
     json.data['3341'].name = json.data['3341'].name.substring(0, 13);
     json.data['3340'].name = json.data['3340'].name.substring(0, 13);
+    return json;
   };
+
+  noEventItems(json) {
+    const ignoreItems = [3634, 3631, 3641, 3636, 3647, 3643, 3642, 3635, 3640, 3007, 3008, 3029, 3073, 3671, 3672, 3673, 3674, 3675];
+    for (let i = 0; i < ignoreItems.length; i++) {
+      delete json.data[ignoreItems[i]];
+    }
+    return json;
+  }
+
+  noChampExclusives(json) {
+    for (const item in json['data']) {
+      if (json['data'].hasOwnProperty(item)) {
+        if (json['data'][item].requiredChampion) {
+          delete json['data'][item];
+        }
+      }
+    }
+    return json;
+  }
+
+  onlyPurchaseable(json) {
+    for (const item in json['data']) {
+      if (json['data'].hasOwnProperty(item)) {
+        if (!json['data'][item].gold.purchasable) {
+          delete json['data'][item];
+        }
+      }
+    }
+    return json;
+  }
+
+  srItemsOnly(json) {
+    for (const item in json['data']) {
+      if (json['data'].hasOwnProperty(item)) {
+        if (!json['data'][item].maps['11']) {
+          delete json['data'][item];
+        }
+      }
+    }
+    return json;
+  }
 
   // ***************************************************************************************************************
   // Fix champion data
@@ -122,6 +154,7 @@ export class MendService {
     this.mendAnnie(json);
     this.mendAshe(json);
     this.mendAzir(json);
+    this.mendBrand(json);
     return json;
   }
 
@@ -138,7 +171,7 @@ export class MendService {
       ]
     });
 
-    var token = json.data.Aatrox.spells[1].sanitizedTooltip;
+    let token = json.data.Aatrox.spells[1].sanitizedTooltip;
     token = token.replace(new RegExp('\\({{ f5 }}\\)', 'g'), ''); //remove f5
     token = token.replace(new RegExp('{{ f4 }}', 'g'), '{{ e7 }} (+{{ f4 }})'); //use the vars we added
     json.data.Aatrox.spells[1].sanitizedTooltip = token;
@@ -189,7 +222,7 @@ export class MendService {
         20, 20, 30, 40
       ]
     });
-    var token = json.data.Anivia.spells[0].sanitizedTooltip;
+    let token = json.data.Anivia.spells[0].sanitizedTooltip;
     token = token.replace(new RegExp('{{ f1 }}%.', 'g'), '{{ f1 }} (based on Glacial Storm rank).');
     json.data.Anivia.spells[0].sanitizedTooltip = token;
 
@@ -241,16 +274,22 @@ export class MendService {
       ]
     });
 
-    var token = json.data.Azir.spells[1].sanitizedTooltip;
+    let token = json.data.Azir.spells[1].sanitizedTooltip;
     token = token.replace(new RegExp('{{ f2 }}', 'g'), '<span class = "base-white">45 +5' +
       ' every level up to 11, then +10 at every level </span>');
     json.data.Azir.spells[1].sanitizedTooltip = token;
     // azir e  TO D0 - add var for 15% bonus hp
-    var token = json.data.Azir.spells[2].sanitizedTooltip;
+    token = json.data.Azir.spells[2].sanitizedTooltip;
     token = token.replace(new RegExp('\\(\\+{{ f1 }}\\)', 'g'), '<span class = "hp-red">+');
     token = token.replace(new RegExp(']', 'g'), ']</span>');
     json.data.Azir.spells[2].sanitizedTooltip = token;
 
+  };
+
+  private mendBrand(json) {
+    // brand q
+    console.log('mend brand');
+    console.log(json.data.Brand.spells[0]);
   };
 }
 

@@ -1,3 +1,8 @@
+/* fix navbar background color */
+.navbar{
+  background-color: #08101a;
+}
+
 /*Matrix Bar CSS*/
 .tint {
     /*height: 30px;*/
@@ -118,9 +123,4 @@ li {
         -webkit-transform: translate3d(0, -50%, 0);
         transform: translate3d(0, -50%, 0);
     }
-}
-
-/* fix navbar background color, TODO: move this to global stylsheet*/
-.navbar{
-  background-color: #08101a;
 }

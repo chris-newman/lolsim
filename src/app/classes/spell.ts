@@ -11,7 +11,7 @@ export class Spell {
   public name: string;
   public resource: string; // might not need resource
   public maxrank: number;
-
+  public currentrank: number;
 
   public leveltip: any;
 
@@ -46,8 +46,21 @@ export class Spell {
 
     this.effect = spell.effect;
     this.vars = spell.vars;
+
+    this.currentrank = 0;
   }
 
   // fn process leveltip
+
+  rankUp() {
+    if (this.currentrank < this.maxrank) {
+      this.currentrank++;
+    }
+  }
+  setRank(rank: number) {
+    if (rank < this.maxrank){
+      this.currentrank = rank;
+    }
+  }
 
 }
