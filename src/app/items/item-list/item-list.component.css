@@ -48,6 +48,10 @@ h2, h3, h5 {
   color: #f2ea92;
 }
 
+.no-delay{
+  touch-action: manipulation;
+}
+
 
 
 

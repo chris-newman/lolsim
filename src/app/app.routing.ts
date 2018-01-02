@@ -5,6 +5,7 @@ const routes: Routes = [
   {path: '', redirectTo: 'champions', pathMatch: 'full'},
   {path: 'champions', loadChildren: 'app/champions/champions.module#ChampionsModule'},
   {path: 'items', loadChildren: 'app/items/items.module#ItemsModule'},
+  {path: 'runes', loadChildren: 'app/runes/runes.module#RunesModule'},
   {path: '**', redirectTo: 'champions'}
 ];
 

@@ -11,3 +11,7 @@ h2, h3 {
 .bottom-spacing{
   padding-bottom: 15px;
 }
+
+.no-delay{
+  touch-action: manipulation;
+}

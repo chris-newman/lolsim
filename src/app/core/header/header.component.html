@@ -6,8 +6,10 @@
 </nav>-->
 
 <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top navbar-line-code">
+  <!-- TODO: implement custom drawer -->
   <div class="line-code-top"></div>
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+    aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand" href="#">LoL Sim</a>
@@ -17,18 +19,18 @@
       <li class="nav-item">
         <a class="nav-link" [ngClass]="{'active': searchCategory==='champions'}" routerLink="/champions">Champions</a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link" [ngClass]="{'active': searchCategory==='runes'}" routerLink="/runes">Runes</a>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link" [ngClass]="{'active': searchCategory==='items'}" routerLink="/items">Items</a>
       </li>
       <!-- <li class="nav-item">
         <a class="nav-link">About</a>
       </li> -->
-      <!-- <li class="nav-item">
-        <a class="nav-link" [ngClass]="{'active': searchCategory==='masteries'}" href="#/masteries">Masteries</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [ngClass]="{'active': searchCategory==='runes'}" href="#/runes">Runes</a>
-      </li> -->
+
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input type="search" class="form-control mr-sm-2" placeholder="Search">
