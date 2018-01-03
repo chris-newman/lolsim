@@ -1,6 +1,6 @@
 <div class="row bottom-spacing" align="center">
   <div *ngFor="let champ of champions" class="col-lg-2 col-md-2 col-sm-3 col-3 bottom-spacing">
     <a [routerLink]="makeInfoURL(champ.key)"><h3>{{champ.name}}</h3></a>
-    <a [routerLink]="makeInfoURL(champ.key)"><img class="img-fluid no-delay" [src]="common.makeChampIconURL(champ.key)" alt=""></a>
+    <a [routerLink]="makeInfoURL(champ.key)"><img class="img-fluid no-delay default-size" [src]="common.makeChampIconURL(champ.key)" alt=""></a>
   </div>
 </div>
