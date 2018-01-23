@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="fixed-navbar-offset"></div>
-<div *ngIf="true" class="vertical-offset">
+<div *ngIf="loading" class="vertical-offset">
   <div class="spinner-container">
     <div class='cssload-inner cssload-one'></div>
     <div class='cssload-inner cssload-two'></div>
@@ -14,7 +14,7 @@
     <h2 class="spinner-title">Loading...</h2>
   </div>
 </div>
-<div class="container-fluid" *ngIf="false">
+<div class="container-fluid" *ngIf="!loading">
   <div class="row">
     <div class="col-3 hidden-md-down">
       <!--TODO: simulation goes here-->
