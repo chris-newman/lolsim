@@ -1,0 +1,94 @@
+// You can add global styles to this file, and also import other style files
+// bootstrap imports
+@import
+  '~bootstrap/scss/variables',
+  '~bootstrap/scss/mixins',
+  // '~bootstrap/scss/custom',
+
+  // '~bootstrap/scss/normalize',
+  // '~bootstrap/scss/print',
+
+  '~bootstrap/scss/reboot',
+  '~bootstrap/scss/images',
+  '~bootstrap/scss/type',
+  // '~bootstrap/scss/code',
+  '~bootstrap/scss/grid',
+  // '~bootstrap/scss/tables',
+  '~bootstrap/scss/forms',
+  '~bootstrap/scss/buttons',
+
+  '~bootstrap/scss/nav',
+  '~bootstrap/scss/navbar',
+
+  '~bootstrap/scss/transitions',
+  '~bootstrap/scss/dropdown',
+  '~bootstrap/scss/close',
+
+  '~bootstrap/scss/card',
+  '~bootstrap/scss/input-group',
+  '~bootstrap/scss/type',
+  '~bootstrap/scss/utilities',
+  '~bootstrap/scss/responsive-embed',
+
+  '~bootstrap/scss/modal',
+  '~bootstrap/scss/tooltip',
+  '~bootstrap/scss/carousel',
+
+  '~bootstrap/scss/popover';
+
+// my imports
+@import '~scss/spinner';
+
+body {
+  background-color: #08101a;
+}
+
+p, h2, h3 {
+  color: #c3c3c3;
+}
+@include media-breakpoint-down(xs) {
+  p {
+    font-size: .75em;
+  }
+}
+
+.base-white {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.base-black{
+  color: #000000;
+  font-weight: bold;
+}
+
+.ad-orange {
+    color: #ff9900;
+}
+
+.ap-green {
+    /* color: #99ff99; */
+    color: #37BD37;
+}
+
+.armor-yellow {
+    /* color: #ffff00; */
+    color: #CBCB00;
+}
+
+.mr-purple {
+    color: #ff00ff;
+}
+
+.hp-red {
+    color: #cc3300;
+}
+
+.mana-blue {
+    color: #44ddff;
+}
+
+/* http://stackoverflow.com/questions/16625972/change-color-of-bootstrap-navbar-on-hover-link */
+// .navbar .navbar-nav > li > a:hover, .navbar .navbar-nav > li > a:focus {
+//     background-color: transparent;
+// }
