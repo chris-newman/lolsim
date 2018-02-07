@@ -8,7 +8,7 @@ import { DataService } from 'app/core/data.service';
 @Component({
   selector: 'app-champ-info',
   templateUrl: './champ-info.component.html',
-  styleUrls: ['./champ-info.component.css']
+  styleUrls: ['./champ-info.component.scss']
 })
 export class ChampInfoComponent implements OnInit, OnDestroy {
   champKey: string;

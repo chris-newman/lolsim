@@ -6,7 +6,7 @@ import { HyperlinkingService } from 'app/core/hyperlinking.service';
 @Component({
   selector: 'app-champ-list',
   templateUrl: './champ-list.component.html',
-  styleUrls: ['./champ-list.component.css']
+  styleUrls: ['./champ-list.component.scss']
 })
 export class ChampListComponent implements OnInit {
   arrayOfKeys: any[];

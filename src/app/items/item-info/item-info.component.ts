@@ -8,7 +8,7 @@ import { SimService } from 'app/core/sim.service';
 @Component({
   selector: 'app-item-info',
   templateUrl: './item-info.component.html',
-  styleUrls: ['./item-info.component.css']
+  styleUrls: ['./item-info.component.scss']
 })
 export class ItemInfoComponent implements OnInit {
   sub: any;
