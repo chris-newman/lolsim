@@ -22,7 +22,7 @@ p {
 }
 
 .raw-stat-block{
-  padding-bottom: 4px;
+  padding: 12px 20px 0px 20px;
 }
 
 .stat-icon{
@@ -34,8 +34,13 @@ p {
 
 /*spells*/
 .passive-block{
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding: 12px 20px 0px 20px;
+  // padding-top: 12px;
+  // padding-bottom: 12px;
+}
+
+.override-display{
+  padding-bottom: 0px;
 }
 
 .ability-header{
@@ -52,6 +57,9 @@ p {
   margin-right: 8px;
   margin-bottom: 8px;
   margin-top: 2px;
+  border: 2px solid #555;
+  // border-bottom: 2px solid #555;
+  // box-shadow: 1px 1px #555;
 }
 
 .passive-icon{
