@@ -22,25 +22,17 @@
       <!-- STATS -->
       <div class="card-block raw-stat-block" *ngIf="champion && displayBlock == 'rawStats'">
         <div class="row">
-          <p class="col-6"><img src="assets/stats/hp.png" alt="" class="stat-icon">HP : {{champion?.stats["base_hp"]}} (+{{champion?.stats["hpperlevel"]}}
-            per level)</p>
-          <p class="col-6"><img src="assets/stats/hp-reg.png" alt="" class="stat-icon">HP Regen : {{champion?.stats["hpregen"]}} (+{{champion?.stats["hpregenperlevel"]}}
-            per level)</p>
+          <p class="col-6"><img src="assets/stats/hp.png" alt="" class="stat-icon">HP : {{champion?.stats["base_hp"]}} <span class="d-none d-md-inline">(+{{champion?.stats["hpperlevel"]}} per level)</span></p>
+          <p class="col-6"><img src="assets/stats/hp-reg.png" alt="" class="stat-icon">HP Regen : {{champion?.stats["hpregen"]}} <span class="d-none d-md-inline">(+{{champion?.stats["hpregenperlevel"]}} per level)</span></p>
 
-          <p class="col-6"><img src="assets/stats/mp.png" alt="" class="stat-icon">MP : {{champion?.stats["base_mp"]}} (+{{champion?.stats["mpperlevel"]}}
-            per level)</p>
-          <p class="col-6"><img src="assets/stats/res-regen.png" alt="" class="stat-icon">MP Regen : {{champion?.stats["mpregen"]}} (+{{champion?.stats["mpregenperlevel"]}}
-            per level)</p>
+          <p class="col-6"><img src="assets/stats/mp.png" alt="" class="stat-icon">MP : {{champion?.stats["base_mp"]}} <span class="d-none d-md-inline">(+{{champion?.stats["mpperlevel"]}} per level)</span></p>
+          <p class="col-6"><img src="assets/stats/res-regen.png" alt="" class="stat-icon">MP Regen : {{champion?.stats["mpregen"]}} <span class="d-none d-md-inline">(+{{champion?.stats["mpregenperlevel"]}} per level)</span></p>
 
-          <p class="col-6"><img src="assets/stats/ad.png" alt="" class="stat-icon">AD : {{champion?.stats["base_ad"]}} (+{{champion?.stats["adperlevel"]}}
-            per level)</p>
-          <p class="col-6"><img src="assets/stats/armor.png" alt="" class="stat-icon">Armor : {{champion?.stats["base_armor"]}} (+{{champion?.stats["armorperlevel"]}}
-            per level)</p>
+          <p class="col-6"><img src="assets/stats/ad.png" alt="" class="stat-icon">AD : {{champion?.stats["base_ad"]}} <span class="d-none d-md-inline">(+{{champion?.stats["adperlevel"]}} per level)</span></p>
+          <p class="col-6"><img src="assets/stats/armor.png" alt="" class="stat-icon">Armor : {{champion?.stats["base_armor"]}} <span class="d-none d-md-inline">(+{{champion?.stats["armorperlevel"]}} per level)</span></p>
 
-          <p class="col-6"><img src="assets/stats/as.png" alt="" class="stat-icon">AS : {{champion?.stats["base_as"]}} (+{{champion?.stats["asperlevel"]}}&#37;
-            per level)</p>
-          <p class="col-6"><img src="assets/stats/mr.png" alt="" class="stat-icon">MR : {{champion?.stats["base_mr"]}} (+{{champion?.stats["mrperlevel"]}}
-            per level)</p>
+          <p class="col-6"><img src="assets/stats/as.png" alt="" class="stat-icon">AS : {{champion?.stats["base_as"]}} <span class="d-none d-md-inline">(+{{champion?.stats["asperlevel"]}}&#37; per level)</span></p>
+          <p class="col-6"><img src="assets/stats/mr.png" alt="" class="stat-icon">MR : {{champion?.stats["base_mr"]}} <span class="d-none d-md-inline">(+{{champion?.stats["mrperlevel"]}} per level)</span></p>
 
           <p class="col-6"><img src="assets/stats/range.png" alt="" class="stat-icon">Range : {{champion?.stats["aarange"]}}</p>
           <p class="col-6"><img src="assets/stats/movespeed.png" alt="" class="stat-icon">Move Speed : {{champion?.stats["movespeed"]}}</p>
