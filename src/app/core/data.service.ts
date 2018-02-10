@@ -11,6 +11,7 @@ import { Rune } from "app/classes/rune";
 import { Mastery } from "app/classes/mastery";
 import { SortService } from "app/core/sort.service";
 import { MendService } from "app/core/mend.service";
+import { NgForageCache, NgForage } from "ngforage";
 // TO DO: look into grouping imports from classes directory into a barrel
 
 @Injectable()
@@ -32,7 +33,8 @@ export class DataService {
   constructor(
     private http: HttpClient,
     protected sort: SortService,
-    protected mend: MendService
+    protected mend: MendService,
+    protected ngfc: NgForageCache,
   ) {
     this.apiRoot = "http://73.134.84.72:10101";
     // this.apiRoot = 'http://localhost:3001';
@@ -61,25 +63,34 @@ export class DataService {
           url += "champions.json";
         }
 
+        // TODO: check cache before http call
+        this.ngfc.get
+
         // console.log('http call for getChampions');
         this.http
           .get(url, { params: searchParams })
           .toPromise()
           .then(json => {
             console.log("get champions success .then");
+
+            // cache data
+            this.ngfc.setCached('champData', json, 1000 * 60 * 60 * 24);
+
             const temp = new Map<string, Champion>();
             // const json = res.json();
             // const json = JSON.parse(res.toString());
+
+            // TODO: abstract this into a function
             this.mend.mendChampData(json);
             this.dataVersion = json["version"];
             for (const champ in json["data"]) {
-              if (json["data"].hasOwnProperty(champ)) {
+              if (json['data'].hasOwnProperty(champ)) {
                 // get stats data
-                const ritoStats = new Stats(json["data"][champ].stats);
+                const ritoStats = new Stats(json['data'][champ].stats);
                 // get spells data
                 const ritoSpells = new Array<Spell>();
-                for (let i = 0; i < json["data"][champ].spells.length; i++) {
-                  let tempSpell = new Spell(json["data"][champ].spells[i]);
+                for (let i = 0; i < json['data'][champ].spells.length; i++) {
+                  let tempSpell = new Spell(json['data'][champ].spells[i]);
                   tempSpell = this.mend.mendSpell(tempSpell);
                   // ritoSpells.push(tempSpell);
 
@@ -90,26 +101,25 @@ export class DataService {
 
                 // add champ key to map
                 temp.set(
-                  json["data"][champ].key,
+                  json['data'][champ].key,
                   new Champion(
-                    json["data"][champ].key,
-                    json["data"][champ].name,
-                    json["data"][champ].title,
-                    json["data"][champ].passive,
+                    json['data'][champ].key,
+                    json['data'][champ].name,
+                    json['data'][champ].title,
+                    json['data'][champ].passive,
                     ritoSpells,
                     ritoStats
                   )
                 );
               }
             }
-            console.log("storing sorted array of champions in map...");
-            this.champions = new Map<string, Champion>(
-              Array.from(temp).sort(this.sort.ascendingChampMap)
-            );
+            console.log('storing sorted array of champions in map...');
+            const sorted = Array.from(temp).sort(this.sort.ascendingChampMap);
+            this.champions = new Map<string, Champion>(sorted);
             resolve();
           })
           .catch(err => {
-            console.log("error");
+            console.log('error');
             console.log(err);
           });
       }
@@ -127,10 +137,10 @@ export class DataService {
         let url = this.apiRoot;
 
         if (!this.tempDataFlag) {
-          searchParams.set("itemData", "all");
-          url += "/static/items";
+          searchParams.set('itemData', 'all');
+          url += '/static/items';
         } else {
-          url += "items.json";
+          url += 'items.json';
         }
         // console.log('http call for getItems');
         this.http
@@ -144,7 +154,7 @@ export class DataService {
             // mend item data
             this.mend.mendItemData(json);
             // TO DO: do something with itemTree
-            this.itemTree = json["tree"];
+            this.itemTree = json['tree'];
 
             // exlude items, TODO: improve perf
             this.mend.noEventItems(json);
@@ -153,11 +163,11 @@ export class DataService {
             this.mend.onlyPurchaseable(json);
 
             // map items
-            for (const item in json["data"]) {
-              if (json["data"].hasOwnProperty(item)) {
+            for (const item in json['data']) {
+              if (json['data'].hasOwnProperty(item)) {
                 temp.set(
-                  "" + json["data"][item].id,
-                  new Item(json["data"][item])
+                  '' + json['data'][item].id,
+                  new Item(json['data'][item])
                 );
               }
             }
@@ -169,7 +179,7 @@ export class DataService {
             resolve();
           })
           .catch(err => {
-            console.log("error");
+            console.log('error');
             console.log(err);
             reject();
           });
@@ -211,7 +221,7 @@ export class DataService {
             resolve();
           })
           .catch(err => {
-            console.log("error");
+            console.log('error');
             console.log(err);
             reject();
           });
@@ -231,7 +241,7 @@ export class DataService {
   }
 
   getChampionByKey(champKey: string) {
-    console.log("getChampByKey: " + champKey);
+    console.log('getChampByKey: ' + champKey);
     if (!this.dataVersion) {
       this.getData().then(values => {
         return this.champions.get(champKey);
@@ -241,7 +251,7 @@ export class DataService {
   }
 
   getItemById(itemId: string): Item {
-    console.log("getItemById: " + itemId);
+    console.log('getItemById: ' + itemId);
     if (!this.dataVersion) {
       this.getData().then(values => {
         return this.items.get(itemId);

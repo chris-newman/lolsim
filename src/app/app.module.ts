@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgForageModule } from 'ngforage';
+
 
 // app imports
 import { AppComponent } from './app.component';
@@ -34,6 +36,7 @@ import { CoreModule } from 'app/core/core.module';
   ],
   imports: [
     NgbModule.forRoot(),
+    NgForageModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
