@@ -1,17 +1,17 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpParams } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/toPromise";
-import { Champion } from "app/classes/champion";
-import { Stats } from "app/classes/stats";
-import { Spell } from "app/classes/spell";
-import { Item } from "app/classes/item";
-import { Rune } from "app/classes/rune";
-import { Mastery } from "app/classes/mastery";
-import { SortService } from "app/core/sort.service";
-import { MendService } from "app/core/mend.service";
-import { NgForageCache, NgForage } from "ngforage";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+import { Champion } from 'app/classes/champion';
+import { Stats } from 'app/classes/stats';
+import { Spell } from 'app/classes/spell';
+import { Item } from 'app/classes/item';
+import { Rune } from 'app/classes/rune';
+import { Mastery } from 'app/classes/mastery';
+import { SortService } from 'app/core/sort.service';
+import { MendService } from 'app/core/mend.service';
+import { NgForageCache, NgForage } from 'ngforage';
 // TO DO: look into grouping imports from classes directory into a barrel
 
 @Injectable()
@@ -34,98 +34,98 @@ export class DataService {
     private http: HttpClient,
     protected sort: SortService,
     protected mend: MendService,
-    protected ngfc: NgForageCache,
+    protected ngfc: NgForageCache
   ) {
-    this.apiRoot = "http://73.134.84.72:10101";
+    this.apiRoot = 'http://73.134.84.72:10101';
     // this.apiRoot = 'http://localhost:3001';
     this.loading = false;
 
     this.tempDataFlag = true;
     if (this.tempDataFlag) {
-      console.warn("!!!USING TEMP DATA FOR OFFLINE DEVELOPMENT!!!");
-      this.apiRoot = "./assets/temp-data/";
+      console.warn('!!!USING TEMP DATA FOR OFFLINE DEVELOPMENT!!!');
+      this.apiRoot = './assets/temp-data/';
     }
   }
 
-  // populate Champion array with initial data
-  private getChampions() {
-    // console.log('getChampions() called');
-    const promise = new Promise((resolve, reject) => {
-      if (!this.champions) {
+  // return champ data from cache or http promise
+  private getChampionsPromise() {
+    if (this.champions) { return null } // return if champData is already loaded in app
+    // TODO: check cache before http call
+    // return this.ngfc.clear().then(() => {
+      console.log('cleared cache');
+      return this.ngfc.getCached('champData').then(cachedItem => {
+        if (cachedItem.data) {
+          console.log('returning cached champ data');
+          console.log({data: cachedItem, cached: true});
+          // return {data: cachedItem, cached: true};
+          return cachedItem;
+        }
+
+        console.log('cache empty, using http')
+
         const searchParams = new HttpParams();
         let url = this.apiRoot;
 
         if (!this.tempDataFlag) {
           // const champDataParams = ['image', 'passive', 'spells', 'stats', 'tags'];
-          url += "/static/champions";
-          searchParams.set("champData", "all"); // using 'all' until Rito fixes their shit
+          url += '/static/champions';
+          searchParams.set('champData', 'all'); // using 'all' until Rito fixes their shit
         } else {
-          url += "champions.json";
+          url += 'champions.json';
         }
 
-        // TODO: check cache before http call
-        this.ngfc.get
-
-        // console.log('http call for getChampions');
-        this.http
+        console.log('returning http promise');
+        return this.http
           .get(url, { params: searchParams })
-          .toPromise()
-          .then(json => {
-            console.log("get champions success .then");
+          .toPromise();
+      });
+    // });
+  }
 
-            // cache data
-            this.ngfc.setCached('champData', json, 1000 * 60 * 60 * 24);
+  handleChampJson(json) {
+    console.log('handleChampJson');
+    console.log(json);
 
-            const temp = new Map<string, Champion>();
-            // const json = res.json();
-            // const json = JSON.parse(res.toString());
+    const temp = new Map<string, Champion>();
+    // const json = res.json();
+    // const json = JSON.parse(res.toString());
 
-            // TODO: abstract this into a function
-            this.mend.mendChampData(json);
-            this.dataVersion = json["version"];
-            for (const champ in json["data"]) {
-              if (json['data'].hasOwnProperty(champ)) {
-                // get stats data
-                const ritoStats = new Stats(json['data'][champ].stats);
-                // get spells data
-                const ritoSpells = new Array<Spell>();
-                for (let i = 0; i < json['data'][champ].spells.length; i++) {
-                  let tempSpell = new Spell(json['data'][champ].spells[i]);
-                  tempSpell = this.mend.mendSpell(tempSpell);
-                  // ritoSpells.push(tempSpell);
+    // TODO: abstract this into a function
+    this.mend.mendChampData(json);
+    this.dataVersion = json['version'];
+    for (const champ in json['data']) {
+      if (json['data'].hasOwnProperty(champ)) {
+        // get stats data
+        const ritoStats = new Stats(json['data'][champ].stats);
+        // get spells data
+        const ritoSpells = new Array<Spell>();
+        for (let i = 0; i < json['data'][champ].spells.length; i++) {
+          let tempSpell = new Spell(json['data'][champ].spells[i]);
+          tempSpell = this.mend.mendSpell(tempSpell);
+          // ritoSpells.push(tempSpell);
 
-                  ritoSpells.push(tempSpell);
+          ritoSpells.push(tempSpell);
 
-                  // ritoSpells.push(this.mend.mendSpell(new Spell(json['data'][champ].spells[i])));
-                }
+          // ritoSpells.push(this.mend.mendSpell(new Spell(json['data'][champ].spells[i])));
+        }
 
-                // add champ key to map
-                temp.set(
-                  json['data'][champ].key,
-                  new Champion(
-                    json['data'][champ].key,
-                    json['data'][champ].name,
-                    json['data'][champ].title,
-                    json['data'][champ].passive,
-                    ritoSpells,
-                    ritoStats
-                  )
-                );
-              }
-            }
-            console.log('storing sorted array of champions in map...');
-            const sorted = Array.from(temp).sort(this.sort.ascendingChampMap);
-            this.champions = new Map<string, Champion>(sorted);
-            resolve();
-          })
-          .catch(err => {
-            console.log('error');
-            console.log(err);
-          });
+        // add champ key to map
+        temp.set(
+          json['data'][champ].key,
+          new Champion(
+            json['data'][champ].key,
+            json['data'][champ].name,
+            json['data'][champ].title,
+            json['data'][champ].passive,
+            ritoSpells,
+            ritoStats
+          )
+        );
       }
-      // resolve();
-    });
-    return promise;
+    }
+    console.log('storing sorted array of champions in map...');
+    const sorted = Array.from(temp).sort(this.sort.ascendingChampMap);
+    this.champions = new Map<string, Champion>(sorted);
   }
 
   // get items
@@ -194,7 +194,7 @@ export class DataService {
     const promise = new Promise((resolve, reject) => {
       if (!this.items) {
         const searchParams = new HttpParams();
-        let url = this.apiRoot;
+        const url = this.apiRoot;
 
         // console.log('http call for getItems');
         this.http
@@ -232,11 +232,27 @@ export class DataService {
 
   getData() {
     if (!this.dataVersion) {
-      const champDataPromise = this.getChampions();
+      // const champDataPromise = this.getChampions();
       const itemDataPromise = this.getItems();
+
+      console.log(this.getChampionsPromise());
       // const runeDataPromise = this.getRunes();
       // return Promise.all([champDataPromise, itemDataPromise, runeDataPromise]);
-      return Promise.all([champDataPromise, itemDataPromise]);
+      return Promise.all([this.getChampionsPromise(), itemDataPromise]).then((result: any) => {
+        console.log(result);
+        // if result[0] has data.data, its from the cache
+        let champJson;
+        if (result[0] && result[0].data.data) {
+          champJson = result[0].data;
+        } else {
+          console.log('caching http data');
+          champJson = result[0];
+          this.ngfc.setCached('champData', result[0], 1000 * 60 * 60 * 24); // set cache time to 24hrs
+        }
+        console.log('calling handle fn');
+        console.log(champJson);
+        this.handleChampJson(champJson);
+      });
     }
   }
 
