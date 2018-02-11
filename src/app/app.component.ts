@@ -16,23 +16,17 @@ export class AppComponent implements OnInit {
   // hack for ngFor based on a number
   Arr = Array;
 
-
-  constructor(protected loldata: DataService, protected sim: SimService, protected common: HyperlinkingService) {
-    console.log('app constructor called');
-  }
+  constructor(protected loldata: DataService, protected sim: SimService, protected common: HyperlinkingService) {}
 
   ngOnInit() {
-    // take care of loading data in app component, so other components don't have to
-    console.log('app ngOnInit');
+    // taking care of loading data in app component, so other components don't have to
     if (!this.loldata.dataVersion) {
       this.loading = true;
-      console.log('calling get data from app component');
       this.loldata.getData().then(() => {
         this.loading = false;
       });
     }
   }
-
 
   // TODO: move outside of AppComponent
   needPlaceHolderItems() {

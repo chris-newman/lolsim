@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Champion } from "app/classes/champion";
-import { Item } from "app/classes/item";
-import { ItemSet } from "app/classes/item-set";
+import { Champion } from 'app/classes/champion';
+import { Item } from 'app/classes/item';
+import { ItemSet } from 'app/classes/item-set';
 
 @Injectable()
 export class SimService {
@@ -12,13 +12,13 @@ export class SimService {
   // TO DO: runes
   // TO DO: masteries
   constructor() {
-    console.log('sim service constructor called');
+    // console.log('sim service constructor called');
     this.selectedChamp = null;
     this.itemSet = new ItemSet();
   }
 
   setChampion(champ: Champion) {
-    console.log('set champion: ' + champ.name);
+    // console.log('set champion: ' + champ.name);
     this.selectedChamp = champ;
   }
 
@@ -27,7 +27,7 @@ export class SimService {
   }
 
   setTargetChamp(champ: Champion) {
-    console.log('set champion: ' + champ.name);
+    // console.log('set champion: ' + champ.name);
     this.selectedChamp = champ;
   }
 
@@ -36,6 +36,4 @@ export class SimService {
   }
 
   // creep / monster functions
-
-
 }

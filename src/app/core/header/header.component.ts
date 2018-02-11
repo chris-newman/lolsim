@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.sub = this.router.events
       .filter(event => event instanceof NavigationStart)
       .subscribe((event: NavigationStart) => {
-        console.log('event from header bar: ' + event);
+        // console.log('event from header bar: ' + event);
         // update search category based on route
         if (event.url.startsWith('/items')) {
           this.searchCategory = 'items';

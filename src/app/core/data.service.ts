@@ -51,18 +51,14 @@ export class DataService {
   private getChampionsPromise() {
     if (this.champions) { return null } // return if champData is already loaded in app
     // TODO: check cache before http call
-    // return this.ngfc.clear().then(() => {
-      console.log('cleared cache');
+    return this.ngfc.clear().then(() => {
       return this.ngfc.getCached('champData').then(cachedItem => {
         if (cachedItem.data) {
           console.log('returning cached champ data');
-          console.log({data: cachedItem, cached: true});
-          // return {data: cachedItem, cached: true};
           return cachedItem;
         }
 
-        console.log('cache empty, using http')
-
+        console.log('cache empty, using http');
         const searchParams = new HttpParams();
         let url = this.apiRoot;
 
@@ -73,16 +69,106 @@ export class DataService {
         } else {
           url += 'champions.json';
         }
-
-        console.log('returning http promise');
         return this.http
           .get(url, { params: searchParams })
           .toPromise();
       });
-    // });
+    });
   }
 
-  handleChampJson(json) {
+  // return item data from cache or http promise
+  private getItemsPromise() {
+    if (this.items) {return null }
+
+    return this.ngfc.getCached('itemData').then((cachedItem) => {
+      if (cachedItem.data) {
+        return cachedItem;
+      }
+
+      console.log('cache empty, using http');
+      const searchParams = new HttpParams();
+      let url = this.apiRoot;
+      if (!this.tempDataFlag) {
+        searchParams.set('itemData', 'all');
+        url += '/static/items';
+      } else {
+        url += 'items.json';
+      }
+      return this.http
+        .get(url, { params: searchParams })
+        .toPromise();
+    });
+  }
+
+  // get runes
+  private getRunesPromise() {
+    // console.log('get items called');
+    const promise = new Promise((resolve, reject) => {
+      if (!this.items) {
+        const searchParams = new HttpParams();
+        const url = this.apiRoot;
+
+        // console.log('http call for getItems');
+        this.http
+          .get(url, { params: searchParams })
+          .toPromise()
+          .then(json => {
+            // console.log('get items success .then');
+            const temp = new Map<string, Rune>();
+            // let json = res.json();
+
+            // mend item data
+
+            // map items
+            // for (const item in json["data"]) {
+            //   if (json["data"].hasOwnProperty(item)) {
+            //     temp.set(
+            //       "" + json["data"][item].id,
+            //       new Item(json["data"][item])
+            //     );
+            //   }
+            // }
+
+            // sort
+            resolve();
+          })
+          .catch(err => {
+            console.log('error');
+            console.log(err);
+            reject();
+          });
+      }
+    });
+    return promise;
+  }
+
+  getData() {
+    if (!this.dataVersion) {
+      return Promise.all([this.getChampionsPromise(), this.getItemsPromise()]).then((result: any) => {
+        let champJson;
+        if (result[0] && result[0].data.data) { // if result[0] has data.data, its from the cache
+          champJson = result[0].data;
+        } else {
+          champJson = result[0];
+
+          // TODO: create ui for manually clearing cache
+          this.ngfc.setCached('champData', result[0], 1000 * 60 * 60 * 24); // set cache time to 24hrs
+        }
+        this.handleChampJson(champJson);
+
+        let itemJson;
+        if (result[1] && result[1].data.data) {
+          itemJson = result[1].data;
+        } else {
+          itemJson = result[1];
+          this.ngfc.setCached('itemData', result[1], 1000 * 60 * 60 * 24); // set cache time to 24hrs
+        }
+        this.handleItemJson(itemJson);
+      });
+    }
+  }
+
+  private handleChampJson(json) {
     console.log('handleChampJson');
     console.log(json);
 
@@ -128,132 +214,36 @@ export class DataService {
     this.champions = new Map<string, Champion>(sorted);
   }
 
-  // get items
-  private getItems() {
-    // console.log('get items called');
-    const promise = new Promise((resolve, reject) => {
-      if (!this.items) {
-        const searchParams = new HttpParams();
-        let url = this.apiRoot;
+  private handleItemJson(json) {
+    // console.log('get items success .then');
+    const temp = new Map<string, Item>();
+    // let json = res.json();
 
-        if (!this.tempDataFlag) {
-          searchParams.set('itemData', 'all');
-          url += '/static/items';
-        } else {
-          url += 'items.json';
-        }
-        // console.log('http call for getItems');
-        this.http
-          .get(url, { params: searchParams })
-          .toPromise()
-          .then(json => {
-            // console.log('get items success .then');
-            const temp = new Map<string, Item>();
-            // let json = res.json();
+    // mend item data
+    this.mend.mendItemData(json);
+    // TO DO: do something with itemTree
+    this.itemTree = json['tree'];
 
-            // mend item data
-            this.mend.mendItemData(json);
-            // TO DO: do something with itemTree
-            this.itemTree = json['tree'];
+    // exlude items, TODO: improve perf
+    this.mend.noEventItems(json);
+    this.mend.srItemsOnly(json);
+    this.mend.noChampExclusives(json);
+    this.mend.onlyPurchaseable(json);
 
-            // exlude items, TODO: improve perf
-            this.mend.noEventItems(json);
-            this.mend.srItemsOnly(json);
-            this.mend.noChampExclusives(json);
-            this.mend.onlyPurchaseable(json);
-
-            // map items
-            for (const item in json['data']) {
-              if (json['data'].hasOwnProperty(item)) {
-                temp.set(
-                  '' + json['data'][item].id,
-                  new Item(json['data'][item])
-                );
-              }
-            }
-
-            // sort by gold cost
-            this.items = new Map<string, Item>(
-              Array.from(temp).sort(this.sort.ascendingGoldCostMap)
-            );
-            resolve();
-          })
-          .catch(err => {
-            console.log('error');
-            console.log(err);
-            reject();
-          });
+    // map items
+    for (const item in json['data']) {
+      if (json['data'].hasOwnProperty(item)) {
+        temp.set(
+          '' + json['data'][item].id,
+          new Item(json['data'][item])
+        );
       }
-    });
-    return promise;
-  }
-
-  // get runes
-  private getRunes() {
-    // console.log('get items called');
-    const promise = new Promise((resolve, reject) => {
-      if (!this.items) {
-        const searchParams = new HttpParams();
-        const url = this.apiRoot;
-
-        // console.log('http call for getItems');
-        this.http
-          .get(url, { params: searchParams })
-          .toPromise()
-          .then(json => {
-            // console.log('get items success .then');
-            const temp = new Map<string, Rune>();
-            // let json = res.json();
-
-            // mend item data
-
-            // map items
-            // for (const item in json["data"]) {
-            //   if (json["data"].hasOwnProperty(item)) {
-            //     temp.set(
-            //       "" + json["data"][item].id,
-            //       new Item(json["data"][item])
-            //     );
-            //   }
-            // }
-
-            // sort
-            resolve();
-          })
-          .catch(err => {
-            console.log('error');
-            console.log(err);
-            reject();
-          });
-      }
-    });
-    return promise;
-  }
-
-  getData() {
-    if (!this.dataVersion) {
-      // const champDataPromise = this.getChampions();
-      const itemDataPromise = this.getItems();
-
-      console.log(this.getChampionsPromise());
-      // const runeDataPromise = this.getRunes();
-      // return Promise.all([champDataPromise, itemDataPromise, runeDataPromise]);
-      return Promise.all([this.getChampionsPromise(), itemDataPromise]).then((result: any) => {
-        console.log(result);
-        // if result[0] has data.data, its from the cache
-        let champJson;
-        if (result[0] && result[0].data.data) {
-          champJson = result[0].data;
-        } else {
-          console.log('caching http data');
-          champJson = result[0];
-          this.ngfc.setCached('champData', result[0], 1000 * 60 * 60 * 24); // set cache time to 24hrs
-        }
-        console.log('calling handle fn');
-        console.log(champJson);
-        this.handleChampJson(champJson);
-      });
     }
+
+    // sort by gold cost
+    this.items = new Map<string, Item>(
+      Array.from(temp).sort(this.sort.ascendingGoldCostMap)
+    );
   }
 
   getChampionByKey(champKey: string) {
