@@ -30,7 +30,8 @@
           <div class="row sim-row">
             <div class="col-4 sim-col">
               <!-- TODO: fix error by creating separate sim component -->
-              <img class="img-fluid sim-icon" [src]="common.makeChampIconURL(this.sim.getChampion()?.key)" alt="">
+              <div *ngIf="this.sim.getChampion();else placeholder"><img class="img-fluid sim-icon" [src]="common.makeChampIconURL(this.sim.getChampion()?.key)" alt=""></div>
+              <ng-template #placeholder><img class="img-fluid sim-icon" [src]="" alt=""></ng-template>
             </div>
             <!-- <div class="col-4 sim-col">
               <h1 class="sim-vs">V.S</h1>

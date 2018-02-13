@@ -51,7 +51,7 @@ export class DataService {
   private getChampionsPromise() {
     if (this.champions) { return null } // return if champData is already loaded in app
     // TODO: check cache before http call
-    return this.ngfc.clear().then(() => {
+    // return this.ngfc.clear().then(() => {
       return this.ngfc.getCached('champData').then(cachedItem => {
         if (cachedItem.data) {
           console.log('returning cached champ data');
@@ -73,7 +73,7 @@ export class DataService {
           .get(url, { params: searchParams })
           .toPromise();
       });
-    });
+    // });
   }
 
   // return item data from cache or http promise
@@ -169,8 +169,8 @@ export class DataService {
   }
 
   private handleChampJson(json) {
-    console.log('handleChampJson');
-    console.log(json);
+    // console.log('handleChampJson');
+    // console.log(json);
 
     const temp = new Map<string, Champion>();
     // const json = res.json();
@@ -209,7 +209,7 @@ export class DataService {
         );
       }
     }
-    console.log('storing sorted array of champions in map...');
+    // console.log('storing sorted array of champions in map...');
     const sorted = Array.from(temp).sort(this.sort.ascendingChampMap);
     this.champions = new Map<string, Champion>(sorted);
   }

@@ -18,7 +18,7 @@ export class ItemListComponent implements OnInit {
   ngOnInit() {
     this.items = Array.from(this.loldata.items.values());
     this.itemTree = this.loldata.getItemTree();
-    console.log(this.itemTree);
+    // console.log(this.itemTree);
   }
 
   makeInfoURL = (itemId) => `/items/${itemId}`;

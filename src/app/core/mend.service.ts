@@ -288,8 +288,8 @@ export class MendService {
 
   private mendBrand(json) {
     // brand q
-    console.log('mend brand');
-    console.log(json.data.Brand.spells[0]);
+    // console.log('mend brand');
+    // console.log(json.data.Brand.spells[0]);
   };
 }
 
