@@ -1,11 +1,12 @@
+@import
+  '~bootstrap/scss/functions',
+  '~bootstrap/scss/mixins',
+  '~bootstrap/scss/variables';
+
 .fixed-size{
   width: 60px;
   height: 60px;
 }
-
-// .bottom-spacing{
-//   padding-bottom: 15px;
-// }
 
 .no-delay{
   touch-action: manipulation;
@@ -15,4 +16,16 @@
   width: 120px;
   max-height: 120px;
   background-color: grey;
+}
+
+// shrink col padding on mobile devices
+@include media-breakpoint-down(xs) {
+  .minimum-spacing .col-3{
+    padding-right: 7.5px;
+    padding-left: 7.5px;
+  }
+  // .minimum-spacing :nth-child(4n + 4){
+  //   padding-left: 15px;
+  //   padding-right: 15px;
+  // }
 }
