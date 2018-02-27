@@ -8,6 +8,7 @@ import { HyperlinkingService } from 'app/core/hyperlinking.service';
 import { SimService } from 'app/core/sim.service';
 import { HeaderComponent } from 'app/core/header/header.component';
 import { AboutComponent } from './about/about.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -15,8 +16,8 @@ import { AboutComponent } from './about/about.component';
     CommonModule,
     RouterModule
   ],
-  declarations: [HeaderComponent, AboutComponent],
-  exports: [HeaderComponent]
+  declarations: [HeaderComponent, AboutComponent, FooterComponent],
+  exports: [HeaderComponent, FooterComponent]
 })
 export class CoreModule {
   static forRoot(): ModuleWithProviders {

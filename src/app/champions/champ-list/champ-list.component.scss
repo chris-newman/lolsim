@@ -18,6 +18,11 @@
   background-color: grey;
 }
 
+.img-container{
+  padding: 2px;
+  color: #555;
+}
+
 // shrink col padding on mobile devices
 @include media-breakpoint-down(xs) {
   .minimum-spacing .col-3{
