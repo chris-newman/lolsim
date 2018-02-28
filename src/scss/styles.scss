@@ -64,6 +64,23 @@ p, h2, h3 {
 }
 
 // other globals
+.input-dark{
+  background-color: rgba(0, 0, 0, 100%);
+  border-color: #317443;
+  color: #ddd;
+}
+
+.input-dark:focus{
+  background-color: rgba(0, 0, 0, 100%);
+  outline-style:none;
+  box-shadow:none;
+  color: #ddd;
+  border-color: #00ff3c;
+}
+
+.container-full{
+  width:100%;
+}
 
 .col-full{
   padding: 0px;
