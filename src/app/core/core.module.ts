@@ -9,6 +9,7 @@ import { SimService } from 'app/core/sim.service';
 import { HeaderComponent } from 'app/core/header/header.component';
 import { AboutComponent } from './about/about.component';
 import { FooterComponent } from './footer/footer.component';
+import { FilterPipe } from './filter.pipe';
 
 
 @NgModule({
@@ -16,8 +17,8 @@ import { FooterComponent } from './footer/footer.component';
     CommonModule,
     RouterModule
   ],
-  declarations: [HeaderComponent, AboutComponent, FooterComponent],
-  exports: [HeaderComponent, FooterComponent]
+  declarations: [HeaderComponent, AboutComponent, FooterComponent, FilterPipe],
+  exports: [HeaderComponent, FooterComponent, FilterPipe]
 })
 export class CoreModule {
   static forRoot(): ModuleWithProviders {

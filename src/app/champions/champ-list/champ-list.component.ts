@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Champion } from 'app/classes/champion';
 import { DataService } from 'app/core/data.service';
 import { HyperlinkingService } from 'app/core/hyperlinking.service';
+import {FilterPipe } from 'app/core/filter.pipe';
 
 @Component({
   selector: 'app-champ-list',
