@@ -8,8 +8,14 @@ h2, h3, h5 {
   height: 60px;
 }
 
-.bottom-spacing{
-  padding-bottom: 15px;
+.top-spacing{
+  margin-top: 15px;
+}
+
+.input-dark{
+  background-color: rgba(0, 0, 0, 100%);
+  border-color: #317443;
+  color: #ddd;
 }
 
 .item-btn{

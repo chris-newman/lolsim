@@ -1,6 +1,15 @@
-<div class="row bottom-spacing" align="center">
+<div class="row">
+  <div class="container">
+    <div class="col-md-12 col-full">
+      <input [(ngModel)]="itemQuery" type="text"
+      class="form-control input-dark" placeholder="Search for an Item"
+      [ngModelOptions]="{standalone: true}">
+    </div>
+  </div>
+</div>
+<div class="row top-spacing" align="center">
   <!-- TODO: look into using bs4 cards instead -->
-  <div *ngFor="let item of items" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+  <div *ngFor="let item of items | filter:'name':itemQuery" class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
     <div class="item-box">
       <a [routerLink]="makeInfoURL(item.id)"><img [src]="common.makeItemIconURL(item.id)" class="item-icon img-fluid no-delay" alt=""></a>
       <button (click)="this.sim.itemSet.addItem(item)" class="btn btn-success item-btn">+</button>
