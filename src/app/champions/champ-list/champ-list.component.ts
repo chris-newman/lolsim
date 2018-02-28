@@ -11,6 +11,7 @@ import { HyperlinkingService } from 'app/core/hyperlinking.service';
 export class ChampListComponent implements OnInit {
   arrayOfKeys: any[];
   champions: Champion[];
+  champQuery: string;
 
   constructor(protected loldata: DataService, protected common: HyperlinkingService) { }
 

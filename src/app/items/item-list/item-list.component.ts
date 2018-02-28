@@ -13,6 +13,8 @@ import { HyperlinkingService } from 'app/core/hyperlinking.service';
 export class ItemListComponent implements OnInit {
   items: Array<Item>;
   itemTree: any;
+  itemQuery: string;
+
   constructor(protected loldata: DataService, protected sim: SimService, protected common: HyperlinkingService) { }
 
   ngOnInit() {
