@@ -22,6 +22,15 @@ p, h2, h3 {
   color: #c3c3c3;
 }
 @include media-breakpoint-down(xs) {
+  h1{
+    font-size: 2em;
+  }
+  h2{
+    font-size: 1.5em;
+  }
+  h3{
+    font-size: 1.25em;
+  }
   p {
     font-size: .75em;
   }

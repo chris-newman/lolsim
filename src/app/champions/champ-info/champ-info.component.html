@@ -13,9 +13,9 @@
           <li class="nav-item">
             <a class="nav-link" [ngClass]="{'active': displayBlock=='rawStats'}" (click)="displayBlock='rawStats'">Raw Stats*</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link disabled" href="">Disabled</a>
-          </li>
+          </li> -->
         </ul>
       </div>
 
@@ -45,7 +45,7 @@
         <div class="card-block passive-block">
           <div class="clearfix">
               <img class="ability-icon" src="{{makePassiveImageUrl(champion.passive.image.full)}}" alt="">
-              <h1 class="ability-header">{{champion.passive.name}}</h1>
+              <h3 class="ability-header">{{champion.passive.name}}</h3>
               <p>{{champion.passive.sanitizedDescription}}</p>
           </div>
         </div>
@@ -53,7 +53,7 @@
         <ul class="list-group list-group-flush">
           <li class="list-group-item override-display" *ngFor="let spell of champion.spells; let i = index">
             <img class="ability-icon" src="{{makeSpellImagePromise(spell.key)}}" alt="">
-            <h1 class="ability-header">{{makeHotkey(i)}} - {{spell.name}}</h1>
+            <h3 class="ability-header">{{makeHotkey(i)}} - {{spell.name}}</h3>
             <p [innerHTML]="spell.displayTooltip"></p>
 
             <p>Cost: {{spell.displayCost}} {{spell.costType}}</p>
