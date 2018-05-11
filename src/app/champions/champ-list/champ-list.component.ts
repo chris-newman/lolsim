@@ -21,29 +21,29 @@ export class ChampListComponent implements OnInit {
   ngOnInit() {
     this.champions = Array.from(this.loldata.champions.values());
 
-    const sub = this.queryObservable.subscribe((x) => {
-      console.log(x);
-    });
+    // const sub = this.queryObservable.subscribe((x) => {
+    //   console.log(x);
+    // });
   }
 
   // cool 1-line ES6 functions (instead of old 4-line ES5 functions)
   makeInfoURL = (champKey) => `/champions/${champKey}`;
 
   // TODO: observable on champQuery
-  highlightFirstResult() {
-    if (this.champQuery !== '') {
-      console.log('getting firstResult');
-      // this.firstResult;
-      this.firstResult = transform(this.champions, 'name', this.champQuery)[0];
-      console.log(this.firstResult);
-    }
+  // highlightFirstResult() {
+  //   if (this.champQuery !== '') {
+  //     console.log('getting firstResult');
+  //     // this.firstResult;
+  //     this.firstResult = transform(this.champions, 'name', this.champQuery)[0];
+  //     console.log(this.firstResult);
+  //   }
 
 
-    function transform(value, keys: string, term: string) {
-      if (!term) return value;
-      return (value || []).filter((item) => keys.split(',').some(key => item.hasOwnProperty(key) && new RegExp(term, 'gi').test(item[key])));
-    }
-  }
+  //   function transform(value, keys: string, term: string) {
+  //     if (!term) return value;
+  //     return (value || []).filter((item) => keys.split(',').some(key => item.hasOwnProperty(key) && new RegExp(term, 'gi').test(item[key])));
+  //   }
+  // }
 
   //
 }
