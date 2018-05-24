@@ -3,7 +3,7 @@ import { NgModule, Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { Routes, RouterModule, Resolve, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgForageModule } from 'ngforage';
 
 
@@ -29,7 +29,8 @@ import { ChampionsModule } from './champions/champions.module';
     MatrixBarDirective,
   ],
   imports: [
-    NgbModule.forRoot(),
+    // NgbModule.forRoot(),
+    NgbModalModule.forRoot(),
     NgForageModule,
     BrowserModule,
     FormsModule,
