@@ -5,6 +5,7 @@ import { ChampListComponent } from 'app/champions/champ-list/champ-list.componen
 import { ChampInfoComponent } from 'app/champions/champ-info/champ-info.component';
 import { routing } from 'app/champions/champions.routing';
 import { FormsModule } from '@angular/forms';
+import { ChampSelectModalComponent } from './champ-select-modal/champ-select-modal.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,9 @@ import { FormsModule } from '@angular/forms';
     CoreModule,
     routing
   ],
-  declarations: [ChampListComponent, ChampInfoComponent]
+  declarations: [ChampListComponent, ChampInfoComponent, ChampSelectModalComponent],
+  entryComponents: [
+    ChampSelectModalComponent
+  ]
 })
 export class ChampionsModule { }

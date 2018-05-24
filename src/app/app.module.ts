@@ -16,6 +16,8 @@ import { MatrixBarDirective } from './directives/matrix-bar.directive';
 // Routes
 import { routing } from 'app/app.routing';
 import { CoreModule } from 'app/core/core.module';
+import { ChampSelectModalComponent } from 'app/champions/champ-select-modal/champ-select-modal.component';
+import { ChampionsModule } from './champions/champions.module';
 // import { RuneListComponent } from 'app/components/runes/rune-list/rune-list.component';
 // import { MasteryListComponent } from 'app/components/masteries/mastery-list/mastery-list.component';
 // import { RuneInfoComponent } from 'app/components/runes/rune-info/rune-info.component';
@@ -44,6 +46,8 @@ import { CoreModule } from 'app/core/core.module';
     routing
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ChampSelectModalComponent]
+
 })
 export class AppModule { }

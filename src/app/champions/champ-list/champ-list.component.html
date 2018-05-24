@@ -8,7 +8,13 @@
 <div class="row minimum-spacing" align="center">
   <!-- TODO: filter logic in component.ts -->
   <div *ngFor="let champ of champions | filter:'key,name':champQuery" class="col-lg-2 col-md-2 col-sm-3 col-3">
-    <a [routerLink]="makeInfoURL(champ.key)"><img class="img-fluid no-delay default-size" [src]="common.makeChampIconURL(champ.key)" alt=""></a>
-    <a [routerLink]="makeInfoURL(champ.key)"><p>{{champ.name}}</p></a>
+    <div *ngIf="!inModal">
+      <a [routerLink]="makeInfoURL(champ.key)"><img class="img-fluid no-delay default-size" [src]="common.makeChampIconURL(champ.key)" alt=""></a>
+      <a [routerLink]="makeInfoURL(champ.key)"><p>{{champ.name}}</p></a>
+    </div>
+    <div *ngIf="inModal">
+        <a (click)="testFn()"><img class="img-fluid no-delay default-size" [src]="common.makeChampIconURL(champ.key)" alt=""></a>
+        <a (click)="testFn()"><p>{{champ.name}}</p></a>
+      </div>
   </div>
 </div>

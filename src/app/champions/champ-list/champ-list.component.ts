@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Champion } from 'app/classes/champion';
 import { DataService } from 'app/core/data.service';
 import { HyperlinkingService } from 'app/core/hyperlinking.service';
@@ -10,6 +10,7 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./champ-list.component.scss']
 })
 export class ChampListComponent implements OnInit {
+  @Input() inModal: boolean;
   arrayOfKeys: any[];
   champions: Champion[];
   champQuery: string;
@@ -28,6 +29,10 @@ export class ChampListComponent implements OnInit {
 
   // cool 1-line ES6 functions (instead of old 4-line ES5 functions)
   makeInfoURL = (champKey) => `/champions/${champKey}`;
+
+  testFn() {
+    console.log('test on click override');
+  }
 
   // TODO: observable on champQuery
   // highlightFirstResult() {
