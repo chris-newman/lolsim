@@ -18,7 +18,7 @@ export class BuildComponent implements OnInit {
   openChampSelect() {
     const modalRef = this.modalService.open(ChampSelectModalComponent, {
       windowClass: 'dark-modal',
-      size: 'sm'
+      size: 'lg'
     });
     // modalRef.componentInstance.card = card;
   }

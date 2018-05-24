@@ -18,10 +18,6 @@ import { routing } from 'app/app.routing';
 import { CoreModule } from 'app/core/core.module';
 import { ChampSelectModalComponent } from 'app/champions/champ-select-modal/champ-select-modal.component';
 import { ChampionsModule } from './champions/champions.module';
-// import { RuneListComponent } from 'app/components/runes/rune-list/rune-list.component';
-// import { MasteryListComponent } from 'app/components/masteries/mastery-list/mastery-list.component';
-// import { RuneInfoComponent } from 'app/components/runes/rune-info/rune-info.component';
-// import { MasteryInfoComponent } from 'app/components/masteries/mastery-info/mastery-info.component';
 
 // TODO: about component
 
@@ -31,10 +27,6 @@ import { ChampionsModule } from './champions/champions.module';
     HelpComponent,
     SideMenuComponent,
     MatrixBarDirective,
-    // MasteryInfoComponent,
-    // MasteryListComponent,
-    // RuneInfoComponent,
-    // RuneListComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -43,11 +35,12 @@ import { ChampionsModule } from './champions/champions.module';
     FormsModule,
     HttpClientModule,
     CoreModule.forRoot(),
+    ChampionsModule,
     routing
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [ChampSelectModalComponent]
+  entryComponents: []
 
 })
 export class AppModule { }
