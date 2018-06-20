@@ -2,20 +2,22 @@
   <div class="card">
 
     <div class="card-body champ-section">
-      <div class="blur-img"></div>
-      <div class="tint"></div>
+      <div class="blur-img" *ngIf="build.champ" [ngClass]="{'fade show': build.champ}" [ngStyle]="{'background-image':champBgImage}"></div><!--TODO: ng class to set the img background based on champion-->
+      <div class="tint" *ngIf="build.champ"></div>
       <div class="card-body section-content">
-        <button class="btn btn-primary" (click)="openChampSelect()">Select</button>  <p>Select a Champion</p>
+        <button class="btn btn-primary" (click)="openChampSelect()">Select</button>
+        <h2 [ngClass]="{'black-text' : champBgImage=='none'}" >Select a champion</h2>
       </div>
     </div>
 
     <div class="card-body">
       Select Your Items
+
     </div>
 
     <div class="card-body">
-        Select Your Runes
-      </div>
+      Select Your Runes
+    </div>
 
 
   </div>

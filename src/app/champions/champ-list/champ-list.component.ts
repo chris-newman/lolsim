@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Champion } from 'app/classes/champion';
 import { DataService } from 'app/core/data.service';
 import { HyperlinkingService } from 'app/core/hyperlinking.service';
@@ -11,6 +11,8 @@ import { Observable } from 'rxjs/Observable';
 })
 export class ChampListComponent implements OnInit {
   @Input() inModal: boolean;
+  // @Input() returnFn: (champ: Champion) => void;
+  @Output() onSelect: EventEmitter<any> = new EventEmitter();
   arrayOfKeys: any[];
   champions: Champion[];
   champQuery: string;
@@ -27,12 +29,13 @@ export class ChampListComponent implements OnInit {
     // });
   }
 
+  champWasSelected(champ: Champion): void {
+    console.log('champ was selected');
+    this.onSelect.emit([champ]);
+  }
+
   // cool 1-line ES6 functions (instead of old 4-line ES5 functions)
   makeInfoURL = (champKey) => `/champions/${champKey}`;
-
-  testFn() {
-    console.log('test on click override');
-  }
 
   // TODO: observable on champQuery
   // highlightFirstResult() {

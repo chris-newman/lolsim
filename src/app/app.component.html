@@ -14,8 +14,7 @@
     <h2 class="spinner-title">Loading...</h2>
   </div>
 </div>
-<div class="container-fluid" *ngIf="!loading">
+<div *ngIf="!loading">
   <router-outlet></router-outlet>
-
 </div>
 <app-footer></app-footer>

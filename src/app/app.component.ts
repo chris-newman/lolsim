@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HyperlinkingService } from 'app/core/hyperlinking.service';
 import { SimService } from 'app/core/sim.service';
 import { DataService } from 'app/core/data.service';
+import { ImagePreloaderService } from './core/image-preloader.service';
 
 
 @Component({
@@ -16,13 +16,14 @@ export class AppComponent implements OnInit {
   // hack for ngFor based on a number
   Arr = Array;
 
-  constructor(protected loldata: DataService, protected sim: SimService, protected common: HyperlinkingService) {}
+  constructor(protected loldata: DataService, protected sim: SimService, private preloader: ImagePreloaderService) {}
 
   ngOnInit() {
     // taking care of loading data in app component, so other components don't have to
     if (!this.loldata.dataVersion) {
       this.loading = true;
       this.loldata.getData().then(() => {
+        this.preloader.preloadChampImagesFromMap(this.loldata.champions, this.loldata.dataVersion);
         this.loading = false;
       });
     }

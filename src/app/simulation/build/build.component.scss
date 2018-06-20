@@ -7,15 +7,17 @@
 }
 
 .blur-img{
-  background-image: url("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg");
+  // background-image: url("http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg");
   width: 100%;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   height: 100px;
+  background-size: cover;
+  background-position: center;
   position: absolute;
-  filter: blur(5px);
+  filter: blur(10px);
   transform: scale(1.1);
   z-index: 7;
 }
@@ -36,3 +38,22 @@
   z-index: 15;
 }
 
+.champ-select-modal .modal-dialog{
+  // height: 100%;
+  // overflow: scroll;
+}
+
+.black-text{
+  color:black;
+}
+
+
+h2 {
+  // background: inherit;
+  // background-clip: text;
+  color: white;
+
+  // color: transparent;
+  // filter: invert(1) grayscale(1) contrast(9);
+  mix-blend-mode: exclusion;
+}
