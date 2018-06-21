@@ -5,6 +5,7 @@
 
 // my imports
 @import '~scss/spinner';
+@import '~scss/utils';
 
 // Sticky footer styles
 html {
@@ -91,15 +92,15 @@ p, h2, h3 {
   border-color: #00ff3c;
 }
 
-.container-full{
-  width:100%;
-}
 
-.col-full{
-  padding: 0px;
-}
 
 /* http://stackoverflow.com/questions/16625972/change-color-of-bootstrap-navbar-on-hover-link */
 // .navbar .navbar-nav > li > a:hover, .navbar .navbar-nav > li > a:focus {
 //     background-color: transparent;
 // }
+
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }

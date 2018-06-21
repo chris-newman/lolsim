@@ -11,7 +11,7 @@ export class Champion {
   setLevel: any;
 
   constructor(
-    //id: number,
+    // id: number,
     public key: string,
     public name: string,
     public title: string,

@@ -5,8 +5,15 @@
       <div class="blur-img fade" *ngIf="build.champ" [ngClass]="{'show': build.champ}" [ngStyle]="{'background-image':champBgImage}"></div><!--TODO: ng class to set the img background based on champion-->
       <div class="tint" *ngIf="build.champ"></div>
       <div class="card-body section-content">
-        <button class="btn btn-primary" (click)="openChampSelect()">Select</button>
-        <h2 [ngClass]="{'black-text' : champBgImage=='none'}" >Select a champion</h2>
+        <button class="btn btn-primary size-for-icon float-left" (click)="openChampSelect()">
+          <i class="material-icons md-48">add</i>
+        </button>
+        <div class="champ-title-container">
+          <h1 class="champ-name" [ngClass]="{'black-text' : champBgImage=='none'}">
+            {{build.champ ? build.champ.name : 'Select a Champion'}}
+          </h1>
+          <h4 class="subtitle">{{build.champ ? build.champ.title : ''}}</h4>
+        </div>
       </div>
     </div>
 
