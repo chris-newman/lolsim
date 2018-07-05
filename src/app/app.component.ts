@@ -24,6 +24,7 @@ export class AppComponent implements OnInit {
       this.loading = true;
       this.loldata.getData().then(() => {
         this.preloader.preloadChampImagesFromMap(this.loldata.champions, this.loldata.dataVersion);
+        this.preloader.preloadItemImagesFromMap(this.loldata.items, this.loldata.dataVersion);
         this.loading = false;
       });
     }
