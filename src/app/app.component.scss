@@ -1,61 +1,9 @@
-
-/* TODO: Move to a Simulation display component */
-.sim{
-  position: fixed;
-}
-
-.sim-overview{
-  width: calc(25% - 15px);
-}
-
-// .sim-card-block{
-//   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-// }
-
-.card-block{
-  padding: 5px;
-}
-
-.sim-champ-block{
-  padding-bottom: 0px;
-}
-
-.sim-vs{
-  margin-top: 10px;
-}
-
-.sim-col{
-  padding: 0px 2px 0px 2px;
-}
-
-.sim-row{
-  padding-left: 10px;
-}
-
-.sim-icon{
-  border: 2px solid #666666;
-  margin-bottom: 2px;
-  height: 64px;
-  width: 64px;
-}
-
-.sim-placeholder{
-  /* height: 64px;
-  width: 64px; */
-}
-
-.sim-bar{
-  width: calc(100% - 30px);
-  bottom: 0px;
-  z-index: 100;
-}
-
-.mouse-pointer{
-  cursor: pointer;
-}
-
-.fixed-navbar-offset{
+.fixed-offset{
   /* 56 + 15 */
   margin-top: 71px;
 }
 
+.mobile-fixed-offset{
+  /* 56 + 15 + 40 */
+  margin-top: 111px;
+}

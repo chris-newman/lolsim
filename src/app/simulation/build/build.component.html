@@ -2,30 +2,28 @@
   <div class="card">
 
     <div class="card-body champ-section">
-      <div class="blur-img fade" *ngIf="build.champ" [ngClass]="{'show': build.champ}" [ngStyle]="{'background-image':champBgImage}"></div><!--TODO: ng class to set the img background based on champion-->
-      <div class="tint" *ngIf="build.champ"></div>
+      <div class="blur-img fade" *ngIf="build.getChampion()" [ngClass]="{'show': build.getChampion()}" [ngStyle]="{'background-image':champBgImage}"></div><!--TODO: ng class to set the img background based on champion-->
+      <div class="tint" *ngIf="build.getChampion()"></div>
       <div class="card-body section-content">
         <button class="btn btn-primary size-for-icon float-left" (click)="openChampSelect()">
-          <i class="material-icons md-48">add</i>
+          <div class="plus">+</div>
         </button>
         <div class="champ-title-container">
           <h1 class="champ-name" [ngClass]="{'black-text' : champBgImage=='none'}">
-            {{build.champ ? build.champ.name : 'Select a Champion'}}
+            {{build.getChampion() ? build.getChampion().name : 'Select a Champion'}}
           </h1>
-          <h4 class="subtitle">{{build.champ ? build.champ.title : ''}}</h4>
+          <h4 class="subtitle">{{build.getChampion() ? build.getChampion().title : ''}}</h4>
         </div>
       </div>
     </div>
 
     <div class="card-body">
       Select Your Items
-
     </div>
 
     <div class="card-body">
       Select Your Runes
     </div>
-
 
   </div>
 </div>

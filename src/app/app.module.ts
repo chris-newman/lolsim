@@ -11,12 +11,10 @@ import { NgForageModule } from 'ngforage';
 import { AppComponent } from './app.component';
 import { HelpComponent } from './components/help/help.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
-import { MatrixBarDirective } from './directives/matrix-bar.directive';
 
 // Routes
 import { routing } from 'app/app.routing';
 import { CoreModule } from 'app/core/core.module';
-import { ChampSelectModalComponent } from 'app/champions/champ-select-modal/champ-select-modal.component';
 import { ChampionsModule } from './champions/champions.module';
 
 // TODO: about component
@@ -25,8 +23,7 @@ import { ChampionsModule } from './champions/champions.module';
   declarations: [
     AppComponent,
     HelpComponent,
-    SideMenuComponent,
-    MatrixBarDirective,
+    SideMenuComponent
   ],
   imports: [
     // NgbModule.forRoot(),

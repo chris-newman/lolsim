@@ -1,4 +1,5 @@
 // You can add global styles to this file, and also import other style files
+// TODO: optimize bootstrap imports
 // bootstrap imports
 @import
   '~bootstrap/scss/bootstrap';
@@ -91,16 +92,3 @@ p, h2, h3 {
   color: #ddd;
   border-color: #00ff3c;
 }
-
-
-
-/* http://stackoverflow.com/questions/16625972/change-color-of-bootstrap-navbar-on-hover-link */
-// .navbar .navbar-nav > li > a:hover, .navbar .navbar-nav > li > a:focus {
-//     background-color: transparent;
-// }
-
-
-.material-icons.md-18 { font-size: 18px; }
-.material-icons.md-24 { font-size: 24px; }
-.material-icons.md-36 { font-size: 36px; }
-.material-icons.md-48 { font-size: 48px; }

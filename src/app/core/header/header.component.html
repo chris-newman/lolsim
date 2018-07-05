@@ -1,55 +1,38 @@
-<!--<nav class="navbar fixed-top nav-line-code">
-  <div class="tint">
-    <a class="navbar-brand" href="#/">LoL Sim</a>
-  </div>
-  <div class="line-code-top" appMatrixBar></div>
-</nav>-->
-<!--
-<nav class="navbar navbar-toggleable-md navbar-inverse fixed-top navbar-line-code">
-  <div class="line-code-top"></div>
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
-    aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" href="#">LoL Sim</a>
-
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-    <ul class="navbar-nav mr-auto mt-2 mt-md-0">
-      <li class="nav-item">
-        <a class="nav-link" [ngClass]="{'active': searchCategory==='champions'}" routerLink="/champions">Champions</a>
+<div class="fixed-top">
+  <!-- normal navbar -->
+  <nav class="navbar navbar-expand navbar-dark bg-very-dark">
+    <a class="navbar-brand" href="#">LOLSIM</a>
+    <ul class="navbar-nav d-none d-sm-block text-right w-100">
+      <li class="nav-item inline-block">
+        <a class="nav-link" [ngClass]="{'active': searchCategory==='champions'}" routerLink="/champions">CHAMPIONS</a>
       </li>
-
-      <li class="nav-item">
-        <a class="nav-link" [ngClass]="{'active': searchCategory==='runes'}" routerLink="/runes">Runes</a>
+      <li class="nav-item inline-block">
+        <a class="nav-link" [ngClass]="{'active': searchCategory==='items'}" routerLink="/items">ITEMS</a>
       </li>
-
-      <li class="nav-item">
-        <a class="nav-link" [ngClass]="{'active': searchCategory==='items'}" routerLink="/items">Items</a>
+      <li class="nav-item inline-block">
+        <a class="nav-link" [ngClass]="{'active': searchCategory==='runes'}" routerLink="/runes">RUNES</a>
       </li>
-
-
+      <li class="nav-item inline-block">
+          <a class="nav-link" [ngClass]="{'active': searchCategory==='runes'}" routerLink="/runes">ABOUT</a>
+        </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input type="search" class="form-control mr-sm-2" placeholder="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav> -->
-
-
-
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top navbar-line-code">
-    <div class="line-code-top"></div>
-    <a class="navbar-brand" href="#">Lolsim</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link" [ngClass]="{'active': searchCategory==='champions'}" routerLink="/champions">Champions</a>
-        <a class="nav-item nav-link" [ngClass]="{'active': searchCategory==='runes'}" routerLink="/runes">Runes</a>
-        <a class="nav-item nav-link" [ngClass]="{'active': searchCategory==='items'}" routerLink="/items">Items</a>
-        <!-- <a class="nav-item nav-link disabled" href="#">Disabled</a> -->
-      </div>
-    </div>
   </nav>
+
+  <!-- mobile navbar -->
+  <nav class="navbar navbar-expand navbar-dark bg-dark navbar-short d-sm-none">
+    <ul class="navbar-nav centered-nav mx-auto">
+      <li class="nav-item inline-block">
+        <a class="nav-link" [ngClass]="{'active': searchCategory==='champions'}" routerLink="/champions">CHAMPIONS</a>
+      </li>
+      <li class="nav-item inline-block">
+        <a class="nav-link" [ngClass]="{'active': searchCategory==='items'}" routerLink="/items">ITEMS</a>
+      </li>
+      <li class="nav-item inline-block">
+        <a class="nav-link" [ngClass]="{'active': searchCategory==='runes'}" routerLink="/runes">RUNES</a>
+      </li>
+      <li class="nav-item inline-block">
+          <a class="nav-link" [ngClass]="{'active': searchCategory==='runes'}" routerLink="/runes">ABOUT</a>
+        </li>
+    </ul>
+  </nav>
+</div>

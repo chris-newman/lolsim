@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChampSelectModalComponent } from '../../champions/champ-select-modal/champ-select-modal.component';
-import { Champion } from '../../classes/champion';
 import { HyperlinkingService } from '../../core/hyperlinking.service';
+import { Build } from '../../classes/build';
 
 @Component({
   selector: 'app-build',
@@ -11,13 +11,13 @@ import { HyperlinkingService } from '../../core/hyperlinking.service';
   encapsulation: ViewEncapsulation.None
 })
 export class BuildComponent implements OnInit {
-  build: any;
+  build: Build;
   champBgImage: string;
 
   constructor(private modalService: NgbModal, private hyperlink: HyperlinkingService) { }
 
   ngOnInit() {
-    this.build = {};
+    this.build = new Build();
     this.champBgImage = 'none';
   }
 
@@ -28,8 +28,8 @@ export class BuildComponent implements OnInit {
     })
     .result
       .then((champ) => {
-        this.build.champ = champ;
-        this.champBgImage = this.hyperlink.makeChampIconSrc(this.build.champ.key);
+        this.build.setChampion(champ);
+        this.champBgImage = this.hyperlink.makeChampIconSrc(champ.key);
       })
       .catch((err) => {
         console.warn(err);

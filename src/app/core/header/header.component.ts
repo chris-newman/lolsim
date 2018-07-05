@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         } else if (event.url.startsWith('/masteries')) {
           this.searchCategory = 'masteries';
         } else if (event.url === '/') {
-          this.searchCategory = 'champions';
+          this.searchCategory = 'all';
         }
       });
   }
