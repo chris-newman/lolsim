@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build --prod --buildOptimizer && aws s3 sync dist s3://www.lolsim.net --delete --acl public-read"
+    "deploy": "ng build --prod --buildOptimizer --source-map && rm -rf ./dist/*.map && aws s3 sync dist s3://www.lolsim.net --delete --acl public-read"
   },
   "private": true,
   "dependencies": {
