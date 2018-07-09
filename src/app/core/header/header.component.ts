@@ -28,6 +28,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.searchCategory = 'runes';
         } else if (event.url.startsWith('/masteries')) {
           this.searchCategory = 'masteries';
+        } else if (event.url.startsWith('/build')) {
+          this.searchCategory = 'all';
         } else if (event.url === '/') {
           this.searchCategory = 'all';
         }
