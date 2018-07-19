@@ -2,37 +2,33 @@ import { Injectable } from '@angular/core';
 import { Champion } from 'app/classes/champion';
 import { Item } from 'app/classes/item';
 import { ItemSet } from 'app/classes/item-set';
+import { Build } from '../classes/build';
 
 @Injectable()
 export class SimService {
-  private selectedChamp: Champion;
-  private targetChamp: Champion;
+  private build: Build;
+  private vs: Build;
   private inGameTime: number;
-  public itemSet: ItemSet; // TODO:, make itemSet class
+  public itemSet: ItemSet;
   // TO DO: runes
-  // TO DO: masteries
+
   constructor() {
-    // console.log('sim service constructor called');
-    this.selectedChamp = null;
-    this.itemSet = new ItemSet();
+    console.log('sim service constructor called');
+    this.build = new Build();
+    this.vs = new Build();
+    this.inGameTime = 0;
   }
 
-  setChampion(champ: Champion) {
-    // console.log('set champion: ' + champ.name);
-    this.selectedChamp = champ;
+  setBuildChampion(champ: Champion) {
+    this.build.setChampion(champ);
   }
 
-  getChampion(): Champion {
-    return this.selectedChamp;
+  getBuildChampion() {
+    return this.build.getChampion();
   }
 
-  setTargetChamp(champ: Champion) {
-    // console.log('set champion: ' + champ.name);
-    this.selectedChamp = champ;
-  }
-
-  getTargetChampion(): Champion {
-    return this.selectedChamp;
+  getBuildItems() {
+    return this.build.itemSet.getItems();
   }
 
   // creep / monster functions

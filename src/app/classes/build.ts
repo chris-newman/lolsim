@@ -5,7 +5,9 @@ export class Build {
   champion: Champion;
   itemSet: ItemSet;
 
-  constructor() {}
+  constructor() {
+    this.itemSet = new ItemSet();
+  }
 
   setChampion(champ: Champion) {
     this.champion = champ;

@@ -2,7 +2,7 @@
 
 <div class="fixed-offset"></div>
 <div class="mobile-fixed-offset d-sm-none"></div>
-<div *ngIf="loading" class="vertical-offset">
+<div *ngIf="loading || preloader.preloading()" class="vertical-offset">
   <div class="spinner-container">
     <div class='cssload-inner cssload-one'></div>
     <div class='cssload-inner cssload-two'></div>
@@ -16,7 +16,7 @@
     <h2 class="spinner-title">Loading...</h2>
   </div>
 </div>
-<div *ngIf="!loading">
+<div *ngIf="!loading && !preloader.preloading()">
   <router-outlet></router-outlet>
 </div>
 <app-footer></app-footer>

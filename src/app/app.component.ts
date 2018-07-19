@@ -13,10 +13,7 @@ export class AppComponent implements OnInit {
   loading = false;
   title = 'app works!';
 
-  // hack for ngFor based on a number
-  Arr = Array;
-
-  constructor(protected loldata: DataService, protected sim: SimService, private preloader: ImagePreloaderService) {}
+  constructor(protected loldata: DataService, protected sim: SimService, public preloader: ImagePreloaderService) {}
 
   ngOnInit() {
     // taking care of loading data in app component, so other components don't have to
@@ -28,12 +25,5 @@ export class AppComponent implements OnInit {
         this.loading = false;
       });
     }
-  }
-
-  // TODO: move outside of AppComponent
-  needPlaceHolderItems() {
-    // console.log('called needPlaceholderItems');
-    // console.log('returned: ' + (6 - this.sim.itemSet.getItems().length));
-    return 6 - this.sim.itemSet.getItems().length;
   }
 }

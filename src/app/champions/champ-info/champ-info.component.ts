@@ -41,7 +41,6 @@ export class ChampInfoComponent implements OnInit, OnDestroy {
     });
 
     this.displayBlock = 'abilities';
-    console.log('sim service selected champion: ' + this.sim.getChampion());
   }
 
   // just to be safe
@@ -90,6 +89,6 @@ export class ChampInfoComponent implements OnInit, OnDestroy {
   }
 
   setChampion(champ) {
-    this.sim.setChampion(champ);
+    this.sim.setBuildChampion(champ);
   }
 }

@@ -65,6 +65,7 @@ $champ-section-height: 112px;
 .size-for-icon{
   width: 72px;
   height: 72px;
+  background-size: contain;
   padding: 6px 10px 0px 12px;
   margin-right: 10px;
   .plus{
@@ -79,4 +80,9 @@ $champ-section-height: 112px;
 
 .small-left-margin{
   margin-left: 10px;
+}
+
+.build-item{
+  height: 64px;
+  width: 64px;
 }

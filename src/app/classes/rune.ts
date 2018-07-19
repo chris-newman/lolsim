@@ -1,24 +1,21 @@
 export class Rune {
-
   public id: number;
   public name: string;
-  public sanitizedDescription: string;
-  public tier;
-  public type;
-
+  public key: string;
+  public pathId: number;
+  public pathName: string;
+  public shortDesc: string;
+  public longDesc: string;
   public image: Object;
-  public tags: Object;
-  public stats: Object;
 
   constructor(rune: any) {
     this.id = rune.id;
     this.name = rune.name;
-    this.sanitizedDescription = rune.sanitizedDescription;
-
-    this.image = rune.image;
-    this.tier = rune.rune.tier;
-    this.type = rune.rune.type;
-    this.tags = rune.tags;
-    this.stats = rune.stats;
+    this.pathId = rune.pathId;
+    this.pathName = rune.pathName;
+    this.key = rune.key;
+    this.image = rune.icon;
+    this.shortDesc = rune.shortDesc;
+    this.longDesc = rune.longDesc;
   }
 }

@@ -7,30 +7,78 @@ import { Item } from '../classes/item';
 })
 export class ImagePreloaderService {
   loading = false;
+  champImagesLoading = false;
+  itemImagesLoading = false;
+
   champImages = new Array();
   itemImages = new Array();
+
+  champImageCount = 0;
+  itemImageCount = 0;
+  failedItemImageCount = 0;
+  failedChampImageCount = 0;
+  successChampImageCount = 0;
+  successItemImageCount = 0;
+
+  // when preloading fails, store src url in this array
+  failedImages = Array<string>();
+
+  // TODO: failed images
   constructor() { }
 
   // make it easy to call this fn using loldata.champions
   preloadChampImagesFromMap(champs: Map<string, Champion>, dataVersion: string) {
-    console.log('preloading ' + champs.size + 'champ images...');
-    this.loading = true;
-    champs.forEach((champ, key) => {
-      this.champImages[key] = new Image();
-      this.champImages[key].src = `http://ddragon.leagueoflegends.com/cdn/${dataVersion}/img/champion/${champ.key}.png`;
+    this.champImageCount = champs.size;
+    this.champImagesLoading = true;
+    champs.forEach((champ) => {
+      const img = new Image();
+      // https://stackoverflow.com/questions/10240110/how-do-you-cache-an-image-in-javascript
+      img.onload = () => {
+        this.successChampImageCount++;
+        // console.log('image onload! images in champ array: ' + this.champImages.length);
+        const index = this.champImages.indexOf(img);
+        if (index !== -1) {
+          // console.log('splicing out');
+          this.champImages.splice(index, 1);
+        }
+        if (this.successChampImageCount === this.champImageCount) this.champImagesLoading = false;
+      }
+      img.onerror = () => {
+        // TODO: implement failed load logic
+      }
+      img.src = `http://ddragon.leagueoflegends.com/cdn/${dataVersion}/img/champion/${champ.key}.png`;
+      this.champImages.push(img);
     })
-    this.loading = false;
-    console.log('done');
+    // this.champImagesLoading = false;
   }
 
   preloadItemImagesFromMap(items: Map<string, Item>, dataVersion: string) {
-    this.loading = true;
-    console.log('preloading ' + items.size + 'item images...');
+    this.itemImagesLoading = true;
+    this.itemImageCount = items.size;
+    // console.log('preloading ' + items.size + 'item images...');
 
-    items.forEach((item, key) => {
-      this.itemImages[key] = new Image();
-      this.itemImages[key].src = `http://ddragon.leagueoflegends.com/cdn/${dataVersion}/img/item/${item.id}.png`;
+    items.forEach((item) => {
+      const img = new Image();
+
+      img.onload = () => {
+        this.successItemImageCount++;
+        // console.log('image onload! images in item array: ' + this.itemImages.length);
+        const index = this.itemImages.indexOf(img);
+        if (index !== -1) {
+          this.itemImages.splice(index, 1);
+          // console.warn('spliced out, remaining: ' + this.itemImages.length + '. successes: ' + this.successItemImageCount);
+
+        }
+        if (this.successItemImageCount === this.itemImageCount) this.itemImagesLoading = false;
+      }
+      img.src = `http://ddragon.leagueoflegends.com/cdn/${dataVersion}/img/item/${item.id}.png`;
+      this.itemImages.push(img);
     })
-    this.loading = false;
+    // this.itemImagesLoading = false;
+  }
+
+  preloading(): boolean {
+    // console.log('preloading() checked: ' + this.itemImagesLoading || this.champImagesLoading);
+    return this.itemImagesLoading || this.champImagesLoading;
   }
 }

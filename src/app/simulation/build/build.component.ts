@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChampSelectModalComponent } from '../../champions/champ-select-modal/champ-select-modal.component';
 import { HyperlinkingService } from '../../core/hyperlinking.service';
 import { Build } from '../../classes/build';
+import { SimService } from '../../core/sim.service';
 
 @Component({
   selector: 'app-build',
@@ -11,14 +12,18 @@ import { Build } from '../../classes/build';
   encapsulation: ViewEncapsulation.None
 })
 export class BuildComponent implements OnInit {
-  build: Build;
   champBgImage: string;
+  // hack for ngFor based on a number
+  Arr = Array;
 
-  constructor(private modalService: NgbModal, private hyperlink: HyperlinkingService) { }
+  constructor(private modalService: NgbModal, private hyperlink: HyperlinkingService, public sim: SimService) { }
 
   ngOnInit() {
-    this.build = new Build();
-    this.champBgImage = 'none';
+    if (this.sim.getBuildChampion()) {
+      this.champBgImage = this.hyperlink.makeChampIconSrc(this.sim.getBuildChampion().key);
+    } else {
+      this.champBgImage = 'none';
+    }
   }
 
   openChampSelect() {
@@ -28,11 +33,17 @@ export class BuildComponent implements OnInit {
     })
     .result
       .then((champ) => {
-        this.build.setChampion(champ);
+        this.sim.setBuildChampion(champ);
         this.champBgImage = this.hyperlink.makeChampIconSrc(champ.key);
       })
       .catch((err) => {
         console.warn(err);
       });
+  }
+
+  needPlaceHolderItems() {
+    // console.log('called needPlaceholderItems');
+    // console.log('returned: ' + (6 - this.sim.itemSet.getItems().length));
+    return 6 - this.sim.getBuildItems().length;
   }
 }

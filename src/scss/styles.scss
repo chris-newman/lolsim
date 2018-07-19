@@ -8,6 +8,11 @@
 @import '~scss/spinner';
 @import '~scss/utils';
 
+// overrides
+.btn:focus, .btn.focus{
+  box-shadow: none;
+}
+
 // Sticky footer styles
 html {
   position: relative;
