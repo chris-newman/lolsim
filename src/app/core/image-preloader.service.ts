@@ -38,13 +38,21 @@ export class ImagePreloaderService {
         // console.log('image onload! images in champ array: ' + this.champImages.length);
         const index = this.champImages.indexOf(img);
         if (index !== -1) {
-          // console.log('splicing out');
           this.champImages.splice(index, 1);
         }
-        if (this.successChampImageCount === this.champImageCount) this.champImagesLoading = false;
+        if (this.successChampImageCount + this.failedChampImageCount === this.champImageCount) this.champImagesLoading = false;
       }
-      img.onerror = () => {
+      img.onerror = (ev) => {
+        console.log('champ image load on error');
         // TODO: implement failed load logic
+        this.failedChampImageCount ++;
+        this.failedImages.push(img.src);
+        // splice image obj out of array
+        const index = this.champImages.indexOf(img);
+        if (index !== -1) {
+          this.champImages.splice(index, 1);
+        }
+        if (this.successChampImageCount + this.failedChampImageCount === this.champImageCount) this.champImagesLoading = false;
       }
       img.src = `http://ddragon.leagueoflegends.com/cdn/${dataVersion}/img/champion/${champ.key}.png`;
       this.champImages.push(img);
@@ -69,8 +77,21 @@ export class ImagePreloaderService {
           // console.warn('spliced out, remaining: ' + this.itemImages.length + '. successes: ' + this.successItemImageCount);
 
         }
-        if (this.successItemImageCount === this.itemImageCount) this.itemImagesLoading = false;
+        if (this.successItemImageCount + this.failedItemImageCount === this.itemImageCount) this.itemImagesLoading = false;
       }
+      img.onerror = (el) => {
+         console.log('champ image load on error');
+         // TODO: implement failed load logic
+         this.failedItemImageCount ++;
+         this.failedImages.push(img.src);
+         // splice image obj out of array
+         const index = this.itemImages.indexOf(img);
+         if (index !== -1) {
+           this.itemImages.splice(index, 1);
+         }
+         if (this.successItemImageCount + this.failedItemImageCount === this.itemImageCount) this.itemImagesLoading = false;
+      }
+
       img.src = `http://ddragon.leagueoflegends.com/cdn/${dataVersion}/img/item/${item.id}.png`;
       this.itemImages.push(img);
     })

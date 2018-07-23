@@ -2,7 +2,7 @@
 
 <div class="fixed-offset"></div>
 <div class="mobile-fixed-offset d-sm-none"></div>
-<div *ngIf="loading || preloader.preloading()" class="vertical-offset">
+<div *ngIf="(loading || preloader.preloading()) && !skipPreload" class="vertical-offset">
   <div class="spinner-container">
     <div class='cssload-inner cssload-one'></div>
     <div class='cssload-inner cssload-two'></div>
@@ -13,10 +13,17 @@
     <div class='cssload-inner cssload-orange'></div>
   </div>
   <div class="spinner-title-container">
-    <h2 class="spinner-title">Loading...</h2>
+    <!-- TODO: progress bar -->
+    <h3 class="spinner-title">Loading Game Data... <span *ngIf="!loading" class="text-success">DONE</span></h3>
+    <h3 class="spinner-title text-secondary">Preloading Champion Images ({{preloader.successChampImageCount}} / {{preloader.champImageCount}})...</h3>
+    <h3 class="spinner-title text-secondary">Preloading Item Images ({{preloader.successItemImageCount}} / {{preloader.itemImageCount}})...</h3>
+    <!-- TODO: runes <h3 class="spinner-title text-secondary">Preloading Item Images ({{preloader.successItemImageCount}} / {{preloader.itemImageCount}})...</h3> -->
+  </div>
+  <div *ngIf="!loading" class="text-center">
+    <button class="btn btn-lg btn-primary" (click)="skipPreload=true">Continue</button>
   </div>
 </div>
-<div *ngIf="!loading && !preloader.preloading()">
+<div *ngIf="(!loading && !preloader.preloading()) || skipPreload">
   <router-outlet></router-outlet>
 </div>
 <app-footer></app-footer>

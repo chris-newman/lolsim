@@ -1,14 +1,18 @@
+$square-size: 150px;
+$thickness: 5px;
+$offset: 150px;
+
 .vertical-offset{
-  margin-top: 100px;
+  margin-top: $offset;
 }
 
 .spinner-container{
   /* position: relative;
   left: calc(50% - 31px); */
-  padding-top: 100px;
+  padding-top: $square-size;
   margin: auto;
-  width: 100px;
-  height: 100px;
+  width: $square-size;
+  height: $square-size;
   border-radius: 50%;
   -o-border-radius: 50%;
   -ms-border-radius: 50%;
@@ -42,7 +46,7 @@
   -ms-animation: cssload-rotate-one 1.15s linear infinite;
   -webkit-animation: cssload-rotate-one 1.15s linear infinite;
   -moz-animation: cssload-rotate-one 1.15s linear infinite;
-  border-bottom: 3px solid #5C5EDC;
+  border-bottom: $thickness solid #5C5EDC;
 }
 .cssload-inner.cssload-green {
   left: 0%;
@@ -52,7 +56,7 @@
   -ms-animation: cssload-rotate-one 1.15s linear infinite;
   -webkit-animation: cssload-rotate-one 1.15s linear infinite;
   -moz-animation: cssload-rotate-one 1.15s linear infinite;
-  border-top: 3px solid #00ff3c;
+  border-top: $thickness solid #00ff3c;
 }
 .cssload-inner.cssload-two {
   right: 0%;
@@ -62,7 +66,7 @@
   -ms-animation: cssload-rotate-two 1.15s linear infinite;
   -webkit-animation: cssload-rotate-two 1.15s linear infinite;
   -moz-animation: cssload-rotate-two 1.15s linear infinite;
-  border-right: 3px solid rgba(76, 70, 101, 0.99);
+  border-right: $thickness solid rgba(76, 70, 101, 0.99);
 }
 .cssload-inner.cssload-white {
   right: 0%;
@@ -72,7 +76,7 @@
   -ms-animation: cssload-rotate-two 1.15s linear infinite;
   -webkit-animation: cssload-rotate-two 1.15s linear infinite;
   -moz-animation: cssload-rotate-two 1.15s linear infinite;
-  border-left: 3px solid #fff;
+  border-left: $thickness solid #fff;
 }
 
 .cssload-inner.cssload-three {
@@ -83,7 +87,7 @@
   -ms-animation: cssload-rotate-three 1.15s linear infinite;
   -webkit-animation: cssload-rotate-three 1.15s linear infinite;
   -moz-animation: cssload-rotate-three 1.15s linear infinite;
-  border-top: 3px solid #e9908a;
+  border-top: $thickness solid #e9908a;
 }
 .cssload-inner.cssload-orange {
   right: 0%;
@@ -93,7 +97,7 @@
   -ms-animation: cssload-rotate-three 1.15s linear infinite;
   -webkit-animation: cssload-rotate-three 1.15s linear infinite;
   -moz-animation: cssload-rotate-three 1.15s linear infinite;
-  border-bottom: 3px solid #ffa500;
+  border-bottom: $thickness solid #ffa500;
 }
 
 @keyframes cssload-rotate-one {
@@ -161,8 +165,12 @@
   }
 }
 
+.spinner-title-container{
+  margin-top: 50px;
+}
+
 .spinner-title {
-  font-size: 2em;
+  font-size: 1.25em;
   text-align: center;
   color: #c3c3c3;
 }
