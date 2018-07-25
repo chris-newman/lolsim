@@ -1,32 +1,39 @@
-<div class="container">
+<div class="container-fluid">
   <div class="card">
 
     <div class="card-body champ-section">
-      <div class="blur-img fade" *ngIf="sim.getBuildChampion()" [ngClass]="{'show': sim.getBuildChampion()}" [ngStyle]="{'background-image':champBgImage}"></div><!--TODO: ng class to set the img background based on champion-->
+      <div class="blur-img fade" *ngIf="sim.getBuildChampion()" [ngClass]="{'show': sim.getBuildChampion()}" [ngStyle]="{'background-image':champBgImage}"></div>
       <div class="tint" *ngIf="sim.getBuildChampion()"></div>
       <div class="card-body section-content">
-        <button class="btn btn-secondary size-for-icon float-left" [ngStyle]="{'background-image':champBgImage}" (click)="openChampSelect()">
-          <div *ngIf="!sim.getBuildChampion()" class="plus">+</div>
-        </button>
-        <div class="champ-title-container">
-          <h1 class="champ-name" [ngClass]="{'black-text' : champBgImage=='none'}">
-            {{sim.getBuildChampion() ? sim.getBuildChampion().name : 'Select a Champion'}}
-          </h1>
-          <h4 class="subtitle">{{sim.getBuildChampion() ? sim.getBuildChampion().title : ''}}</h4>
+        <div class="row">
+          <div class="col-12">
+            <button class="btn btn-primary size-for-icon inline-block align-top" [ngStyle]="{'background-image':champBgImage}" (click)="openChampSelect()">
+              <div *ngIf="!sim.getBuildChampion()" class="plus">+</div>
+            </button>
+            <div class="champ-title-container inline-block text-left">
+              <h1 class="champ-name block" [ngClass]="{'black-text' : champBgImage=='none'}">
+                {{sim.getBuildChampion() ? sim.getBuildChampion().name : 'Select a Champion'}}
+              </h1>
+              <h4 class="subtitle block">{{sim.getBuildChampion() ? sim.getBuildChampion().title : ''}}</h4>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="card-body">
       Select Your Items
-      <div class="row">
-        <div class="col-sm-2 col-4 text-center" *ngFor="let item of this.sim.getBuildItems()">
-          <img class="img-fluid build-item border border-dark" [src]="common.makeItemIconURL(item.id)" alt="">
+      <div class="row small-margin-top">
+        <div class="col-sm-2 col-4" *ngFor="let item of this.sim.getBuildItems()">
+          <!-- <img class="img-fluid build-item border border-dark" [src]="hyperlink.makeItemIconURL(item.id)" alt=""> -->
+          <button class="btn btn-secondary size-for-icon" [ngStyle]="{'background-image': hyperlink.makeItemIconSrc(item.id)}"></button>
         </div>
         <!-- Shoutout to https://stackoverflow.com/questions/36535629/repeat-html-element-multiple-times-using-ngfor-based-on-a-number -->
-        <div class="col-sm-2 col-4 text-center" *ngFor="let x of Arr(needPlaceHolderItems()).fill(0)">
+        <div class="col-sm-2 col-4" *ngFor="let x of Arr(needPlaceHolderItems()).fill(0)">
           <a href="#/items">
-            <img class="img-fluid build-item placeholder border border-dark" [src]="" alt="">
+            <button class="btn btn-secondary size-for-icon">
+              <div class="plus">+</div>
+            </button>
           </a>
         </div>
       </div>
@@ -34,36 +41,6 @@
 
     <div class="card-body">
       Select Your Runes
-
-      <div class="row">
-        <!-- major path -->
-        <div class="col-6">
-          <!-- major path runes -->
-          <div class="row">
-              <img class="img-fluid build-item placeholder border border-dark" [src]="" alt="">
-          </div>
-          <div class="row">
-              <img class="img-fluid build-item placeholder border border-dark" [src]="" alt="">
-          </div>
-          <div class="row">
-              <img class="img-fluid build-item placeholder border border-dark" [src]="" alt="">
-          </div>
-          <div class="row">
-              <img class="img-fluid build-item placeholder border border-dark" [src]="" alt="">
-          </div>
-        </div>
-
-        <!-- minor path -->
-        <div class="col-6">
-          <!-- minor path runes -->
-          <div class="row">
-              <img class="img-fluid build-item placeholder border border-dark" [src]="" alt="">
-          </div>
-          <div class="row">
-              <img class="img-fluid build-item placeholder border border-dark" [src]="" alt="">
-          </div>
-        </div>
-      </div>
     </div>
 
   </div>

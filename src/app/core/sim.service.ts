@@ -9,7 +9,6 @@ export class SimService {
   private build: Build;
   private vs: Build;
   private inGameTime: number;
-  public itemSet: ItemSet;
   // TO DO: runes
 
   constructor() {
@@ -30,6 +29,19 @@ export class SimService {
   getBuildItems() {
     return this.build.itemSet.getItems();
   }
+
+  addBuildItem(item: Item) {
+    this.build.itemSet.addItem(item);
+  }
+
+  getBuildMajorRunes() {
+
+  }
+
+  getBuildMinorRunes() {
+
+  }
+
 
   // creep / monster functions
 }

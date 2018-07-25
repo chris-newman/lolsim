@@ -11,8 +11,7 @@ import { ImagePreloaderService } from './core/image-preloader.service';
 })
 export class AppComponent implements OnInit {
   loading = false;
-  title = 'app works!';
-
+  skipPreload = false;
   constructor(protected loldata: DataService, protected sim: SimService, public preloader: ImagePreloaderService) {}
 
   ngOnInit() {

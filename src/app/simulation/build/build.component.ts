@@ -16,7 +16,7 @@ export class BuildComponent implements OnInit {
   // hack for ngFor based on a number
   Arr = Array;
 
-  constructor(private modalService: NgbModal, private hyperlink: HyperlinkingService, public sim: SimService) { }
+  constructor(private modalService: NgbModal, public hyperlink: HyperlinkingService, public sim: SimService) { }
 
   ngOnInit() {
     if (this.sim.getBuildChampion()) {
@@ -45,5 +45,13 @@ export class BuildComponent implements OnInit {
     // console.log('called needPlaceholderItems');
     // console.log('returned: ' + (6 - this.sim.itemSet.getItems().length));
     return 6 - this.sim.getBuildItems().length;
+  }
+
+  needPlaceHolderMajorRunes() {
+    // return 4 - this.sim.get
+  }
+
+  needPlaceHolderMinorRunes() {
+
   }
 }

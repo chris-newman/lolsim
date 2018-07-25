@@ -11,7 +11,7 @@
         <a [routerLink]="makeInfoURL(item.id)">
           <img [src]="common.makeItemIconURL(item.id)" class="item-icon img-fluid no-delay" alt="">
         </a>
-        <button (click)="this.sim.itemSet.addItem(item)" class="btn btn-success item-btn">+</button>
+        <button (click)="this.sim.addBuildItem(item)" class="btn btn-success item-btn">+</button>
         <a [routerLink]="makeInfoURL(item.id)">
           <h3 class="item-name">{{item.name}}</h3>
         </a>
