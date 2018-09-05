@@ -5,6 +5,12 @@ export class Stats {
 
   public ad: number;
   public adperlevel: number;
+  public adaptivead: number;
+
+  // how did i forget ap? ^_^
+  public ap: number;
+  public apperlevel: number;
+  public adaptiveap: number;
 
   public as: number;
   public asperlevel: number;
@@ -31,7 +37,7 @@ export class Stats {
   public aarange: number;
   public movespeed: number;
 
-  //base stats
+  // base stats
   public base_armor: number;
   public base_ad: number;
   public base_as: number;
@@ -67,6 +73,7 @@ export class Stats {
     this.armorperlevel = stats.armorperlevel; // === undefined ? '0' : stats.armorperlevel;
     this.base_ad = stats.attackdamage; // === undefined ? '0' : stats.attackdamage;
     this.adperlevel = stats.attackdamageperlevel; // === undefined ? '0' : stats.attackdamageperlevel;
+    this.apperlevel = stats.apperlevel; // ???
     this.aarange = stats.attackrange; // === undefined ? '0' : stats.attackrange;
     this.attackspeedoffset = stats.attackspeedoffset;
     this.asperlevel = stats.attackspeedperlevel;

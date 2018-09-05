@@ -39,8 +39,8 @@ export class MendService {
   replaceVars(spell: Spell) {
     for (let i = 0; i < spell.vars.length; i++) {
       let coeff = spell.vars[i].coeff;
-      let link = spell.vars[i].link;
-      let key = spell.vars[i].key;
+      const link = spell.vars[i].link;
+      const key = spell.vars[i].key;
 
       if (link === '@cooldownchampion' || link === 'rechargetime') { // akali r and azir w
         coeff = this.simpleArrayToString(coeff);
@@ -172,8 +172,8 @@ export class MendService {
     });
 
     let token = json.data.Aatrox.spells[1].sanitizedTooltip;
-    token = token.replace(new RegExp('\\({{ f5 }}\\)', 'g'), ''); //remove f5
-    token = token.replace(new RegExp('{{ f4 }}', 'g'), '{{ e7 }} (+{{ f4 }})'); //use the vars we added
+    token = token.replace(new RegExp('\\({{ f5 }}\\)', 'g'), ''); // remove f5
+    token = token.replace(new RegExp('{{ f4 }}', 'g'), '{{ e7 }} (+{{ f4 }})'); // use the vars we added
     json.data.Aatrox.spells[1].sanitizedTooltip = token;
   };
 

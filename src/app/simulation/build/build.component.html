@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid px-0 px-sm-3">
   <div class="card">
 
     <div class="card-body champ-section">
@@ -21,15 +21,15 @@
       </div>
     </div>
 
-    <div class="card-body">
-      Select Your Items
-      <div class="row small-margin-top">
-        <div class="col-sm-2 col-4" *ngFor="let item of this.sim.getBuildItems()">
+    <div class="card-body pb-0">
+      Item Set
+      <div class="row">
+        <div class="col-sm-2 col-4 mt-3" *ngFor="let item of this.sim.getBuildItems()">
           <!-- <img class="img-fluid build-item border border-dark" [src]="hyperlink.makeItemIconURL(item.id)" alt=""> -->
           <button class="btn btn-secondary size-for-icon" [ngStyle]="{'background-image': hyperlink.makeItemIconSrc(item.id)}"></button>
         </div>
         <!-- Shoutout to https://stackoverflow.com/questions/36535629/repeat-html-element-multiple-times-using-ngfor-based-on-a-number -->
-        <div class="col-sm-2 col-4" *ngFor="let x of Arr(needPlaceHolderItems()).fill(0)">
+        <div class="col-sm-2 col-4 mt-3" *ngFor="let x of Arr(needPlaceHolderItems()).fill(0)">
           <a href="#/items">
             <button class="btn btn-secondary size-for-icon">
               <div class="plus">+</div>
@@ -40,7 +40,36 @@
     </div>
 
     <div class="card-body">
-      Select Your Runes
+      Rune Page
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary size-for-icon">
+            <div class="plus">+</div>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary size-for-icon">
+            <div class="plus">+</div>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary size-for-icon">
+            <div class="plus">+</div>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button class="btn btn-primary size-for-icon">
+            <div class="plus">+</div>
+          </button>
+        </div>
+      </div>
+
     </div>
 
   </div>

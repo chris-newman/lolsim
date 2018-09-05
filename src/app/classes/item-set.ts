@@ -1,5 +1,5 @@
-import { Item } from "app/classes/item";
-import { Stats } from "app/classes/stats";
+import { Item } from 'app/classes/item';
+import { Stats } from 'app/classes/stats';
 
 export class ItemSet {
   private items: Array<Item>;
@@ -78,12 +78,12 @@ export class ItemSet {
   // TODO: figure out where to validate going over stat caps, probably in the sim service itself.
   public sumStats(): Object {
     // need to initialize object values to 0 for 1-line case statements to work
-    let stats = {'as': 0, 'ad': 0, 'movespeed': 0, 'armor': 0, 'crit': 0, 'hp': 0, 'mr': 0, 'mp': 0, 'lifesteal': 0};
+    const stats = {'as': 0, 'ad': 0, 'movespeed': 0, 'armor': 0, 'crit': 0, 'hp': 0, 'mr': 0, 'mp': 0, 'lifesteal': 0};
     this.items.forEach(item => {
       // console.log(item.stats);
-      for (let key in item.stats) {
+      for (const key in item.stats) {
         if (item.stats.hasOwnProperty(key)) {
-          let statValue = item.stats[key];
+          const statValue = item.stats[key];
           // add the value to the stats object, multiplied by 100 if we know its a decimal.
           switch (key) {
             case 'PercentAttackSpeedMod': stats['as'] += statValue * 100; break;
@@ -140,7 +140,7 @@ export class ItemSet {
     x += 'Total Stats: \n';
     const itemStats = this.sumStats();
     // console.log(itemStats);
-    for (let key in itemStats) {
+    for (const key in itemStats) {
       if (itemStats.hasOwnProperty(key) && itemStats[key] > 0 ) { // only show stats > 0
         x += '\t' + key + '- ' + itemStats[key] + '\n';
       }

@@ -8,7 +8,6 @@ import { Stats } from 'app/classes/stats';
 import { Spell } from 'app/classes/spell';
 import { Item } from 'app/classes/item';
 import { Rune } from 'app/classes/rune';
-import { Mastery } from 'app/classes/mastery';
 import { SortService } from 'app/core/sort.service';
 import { MendService } from 'app/core/mend.service';
 import { NgForageCache, NgForage } from 'ngforage';
@@ -21,7 +20,6 @@ export class DataService {
   champions: Map<string, Champion>;
   items: Map<string, Item>;
   itemTree: Array<Object>;
-  masteries: Map<string, Mastery>;
   runes: Map<string, Rune>;
   loading: boolean;
   testApi: string;
@@ -154,6 +152,8 @@ export class DataService {
           // TODO: create ui for manually clearing cache
           this.ngfc.setCached('champData', result[0], 1000 * 60 * 60 * 24); // set cache time to 24hrs
         }
+        // console.log(JSON.stringify(champJson, null, 2));
+        console.log(champJson);
         this.handleChampJson(champJson);
 
         let itemJson;

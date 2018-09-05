@@ -7,8 +7,8 @@ describe('lolsim App', () => {
     page = new LolsimPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display navbar with app title', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect<any>(page.getParagraphText()).toEqual('LOLSIM');
   });
 });
