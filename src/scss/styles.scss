@@ -33,9 +33,11 @@ body {
 p, h2, h3 {
   color: #c3c3c3;
 }
+
+// abstract this out into a responsive.scss file
 @include media-breakpoint-down(xs) {
   h1{
-    font-size: 2em;
+    font-size: 1.75em;
   }
   h2{
     font-size: 1.5em;
@@ -45,6 +47,9 @@ p, h2, h3 {
   }
   p {
     font-size: .75em;
+  }
+  .build-card{
+    border-radius: 0px;
   }
 }
 

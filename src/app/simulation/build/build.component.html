@@ -1,12 +1,12 @@
 <div class="container-fluid px-0 px-sm-3">
-  <div class="card">
+  <div class="card build-card">
 
     <div class="card-body champ-section">
       <div class="blur-img fade" *ngIf="sim.getBuildChampion()" [ngClass]="{'show': sim.getBuildChampion()}" [ngStyle]="{'background-image':champBgImage}"></div>
       <div class="tint" *ngIf="sim.getBuildChampion()"></div>
       <div class="card-body section-content">
         <div class="row">
-          <div class="col-12">
+          <div class="col-12 d-flex align-items-center">
             <button class="btn btn-primary size-for-icon inline-block align-top" [ngStyle]="{'background-image':champBgImage}" (click)="openChampSelect()">
               <div *ngIf="!sim.getBuildChampion()" class="plus">+</div>
             </button>
@@ -14,7 +14,7 @@
               <h1 class="champ-name block" [ngClass]="{'black-text' : champBgImage=='none'}">
                 {{sim.getBuildChampion() ? sim.getBuildChampion().name : 'Select a Champion'}}
               </h1>
-              <h4 class="subtitle block">{{sim.getBuildChampion() ? sim.getBuildChampion().title : ''}}</h4>
+              <h3 class="subtitle block">{{sim.getBuildChampion() ? sim.getBuildChampion().title : ''}}</h3>
             </div>
           </div>
         </div>

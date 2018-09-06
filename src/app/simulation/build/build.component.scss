@@ -6,10 +6,11 @@ $champ-section-height: 112px;
   clip-path: inset(-1px -2px -1px -1px);
   z-index: 5;
   position: relative;
+  overflow: hidden;
+  margin: -1px -1px 0px -1px;
 }
 
 .blur-img{
-  width: 100%;
   top: 0;
   left: 0;
   bottom: 0;
