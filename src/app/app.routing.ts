@@ -14,4 +14,4 @@ const routes: Routes = [
   {path: '**', redirectTo: 'champions'}
 ];
 
-export const routing = RouterModule.forRoot(routes, {useHash: true});
+export const routing = RouterModule.forRoot(routes, {useHash: true, scrollPositionRestoration: 'enabled'});
